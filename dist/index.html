@@ -6,17 +6,17 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230123185739">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230124203655">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230123185739" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230124203655" rel="stylesheet">
 </head>
 
 <body>
-	<div class="wrapper">
+	<div id="app" class="wrapper">
 		<!-- <header class="header">
 	<div class="header__container">
 	</div>
@@ -125,6 +125,9 @@
 					<div class="header">
 						<div class="header__search">
 							<input class="search__input" type="text" placeholder="Search for news..">
+							<svg class="search__icon">
+								<use xlink:href="img/icons/icons.svg#menu-icon-search"></use>
+							</svg>
 						</div>
 						<div class="header__latest">
 							<h3 class="latest__text">
@@ -145,7 +148,90 @@
 							</svg>
 						</div>
 					</div>
-
+					<div class="main__news">
+						<div class="main__newsfeed">
+							<h2 class="main__title">Top Stories for you</h2>
+							<div class="main__tags">
+								<ul class="tags__list">
+									<li class="list__item">All</li>
+									<li class="list__item">Android</li>
+									<li class="list__item">Cricket</li>
+									<li class="list__item">iPhone</li>
+									<li class="list__item">Google</li>
+									<li class="list__item">Nano Technology</li>
+									<li class="list__item">Mental Health</li>
+									<li class="list__item">...</li>
+								</ul>
+							</div>
+							<ul class="newsfeed__list">
+								<li v-for="item in news" class="list__item">
+									<div class="item__top">
+										<div class="list_text">
+											<h3 class="item__title">
+												{{item.title}}
+											</h3>
+											<p class="item__text">
+												{{item.text}}
+											</p>
+										</div>
+										<picture><source srcset="item.img" type="image/webp"><img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy"></picture>
+									</div>
+									<div class="crumbs">
+										<div class="crumbs__leftside">
+											<div class="crumbs__category">
+												{{item.paper}}
+											</div>
+											<div class="crumbs__time">
+												{{item.time}}
+											</div>
+										</div>
+										<div class="crumbs__rightside">
+											<div class="crumbs__share">
+												<svg class="share__icon">
+													<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
+												</svg>
+												Share
+											</div>
+											<div class="readlater">
+												<svg class="readlater__icon">
+													<use xlink:href="img/icons/icons.svg#pocket-crumbs-icon"></use>
+												</svg>
+												Read Later
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="creators">
+								<div class="creators__text">
+									<svg class="creators__icon">
+										<use xlink:href="img/icons/icons.svg#creators-icon"></use>
+									</svg>
+									<h3 class="creators__title">Creators you should follow</h3>
+								</div>
+								<div class="swiper__creators">
+									<ul class="creators__list swiper-wrapper">
+										<li v-for="item in creators" class="list__item swiper-slide">
+											<picture><source srcset="item.avatar" type="image/webp"><img :src="item.avatar" :alt="item.name" class="item__avatar"></picture>
+											<h4 class="item__title">{{item.name}}</h4>
+											<h5 class="item__subtitle">{{item.newspaper}}</h5>
+											<button class="item__bottom">Follow</button>
+										</li>
+									</ul>
+									<div class="swiper-button-prev">
+										<svg class="swiper__icon">
+											<use xlink:href="img/icons/icons.svg#creators-arrow-right"></use>
+										</svg>
+									</div>
+									<div class="swiper-button-next">
+										<svg class="swiper__icon">
+											<use xlink:href="img/icons/icons.svg#creators-arrow-right"></use>
+										</svg>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 		</main>
@@ -154,7 +240,101 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230123185739"></script>
+	<script src="js/app.min.js?_v=20230124203655"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230124203655"></script>
+
+	<script>
+		const {
+			createApp
+		} = Vue;
+
+		const newsArr = [{
+				title: "Samsung Galaxy F22 launched in India: Price, features, other details",
+				text: "Samsung Galaxy F22 has been launched in India. The new smartphone has been priced in the mid-range segment. The new smartphone is powered by a MediaTek chipset and features a high refresh rate AMOLED display.",
+				paper: "The Mint",
+				time: "15 mins ago",
+				img: "img/news/news-galaxy.png"
+			},
+			{
+				title: "Battlegrounds Mobile India iOS release date",
+				text: "The reason behind their disappointment is that iPhone users have been..",
+				paper: "Sport Biz",
+				time: "42 mins ago",
+				img: "img/news/news-battleground.png"
+			},
+			{
+				title: "Instagram working on ‘Exclusive Stories’ for subscribers",
+				text: "Instagram could be jumping on the paid subscription..",
+				paper: "The Mint",
+				time: "52 mins ago",
+				img: "img/news/news-instagram.png"
+			},
+			{
+				title: "Petrol, diesel prices -  July 6: Fuel prices unchanged after touching record high",
+				text: "The price of petrol remained unchanged on July 6 after reaching a new record high on the previous day, according to a price notification by state-owned..",
+				paper: "Radar 52",
+				time: "1 hour ago",
+				img: false
+			},
+			{
+				title: "Android smartphone users alert! Remove these 9 apps now",
+				text: "Stealer trojans were spread as harmless software..",
+				paper: "Live Mint",
+				time: "2 hours ago",
+				img: "img/news/news-android.png"
+			},
+			{
+				title: "How to install Windows 11 on almost any unsupported PC",
+				text: "Microsoft is allowing some unsupported computers..",
+				paper: "Tech Mint",
+				time: "3 hours ago",
+				img: "img/news/news-windows.png"
+			},
+			{
+				title: "This charging feature from Android phones may come to iPhone 13",
+				text: "You will always find a set of people who will say that..",
+				paper: "Live Mint",
+				time: "5 hours ago",
+				img: "img/news/news-charging.png"
+			}
+		];
+
+		const creatorsArr = [{
+				avatar: "img/creators/creators-shan-taylor.png",
+				name: "Shan Teylor",
+				newspaper: "Tech Mint",
+			},
+			{
+				avatar: "img/creators/creators-mary-angela.png",
+				name: "Mary Angela",
+				newspaper: "Live Mint",
+			},
+			{
+				avatar: "img/creators/creators-kyon.png",
+				name: "Kyon Cho Chi",
+				newspaper: "Bizz Daily",
+			},
+			{
+				avatar: "img/creators/creators-paul.png",
+				name: "Paul Livingstone",
+				newspaper: "Sport Biz",
+			},
+			{
+				avatar: "img/creators/creators-sara.png",
+				name: "Sara Jay",
+				newspaper: "Radar 52",
+			},
+		]
+
+		createApp({
+			data() {
+				return {
+					news: newsArr,
+					creators: creatorsArr,
+				}
+			}
+		}).mount('#app')
+	</script>
 </body>
 
 </html>
