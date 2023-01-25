@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230124203655">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230125151620">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230124203655" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230125151620" rel="stylesheet">
 </head>
 
 <body>
@@ -203,13 +203,13 @@
 								</li>
 							</ul>
 							<div class="creators">
-								<div class="creators__text">
-									<svg class="creators__icon">
-										<use xlink:href="img/icons/icons.svg#creators-icon"></use>
-									</svg>
-									<h3 class="creators__title">Creators you should follow</h3>
-								</div>
 								<div class="swiper__creators">
+									<div class="creators__text">
+										<svg class="creators__icon">
+											<use xlink:href="img/icons/icons.svg#creators-icon"></use>
+										</svg>
+										<h3 class="creators__title">Creators you should follow</h3>
+									</div>
 									<ul class="creators__list swiper-wrapper">
 										<li v-for="item in creators" class="list__item swiper-slide">
 											<picture><source srcset="item.avatar" type="image/webp"><img :src="item.avatar" :alt="item.name" class="item__avatar"></picture>
@@ -230,6 +230,124 @@
 									</div>
 								</div>
 							</div>
+							<ul class="newsfeed__list _bottom__list">
+								<li v-for="item in bottomnews" class="list__item">
+									<div class="item__top">
+										<div class="list_text">
+											<h3 class="item__title">
+												{{item.title}}
+											</h3>
+											<p class="item__text">
+												{{item.text}}
+											</p>
+										</div>
+										<picture><source srcset="item.img" type="image/webp"><img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy"></picture>
+									</div>
+									<div class="crumbs">
+										<div class="crumbs__leftside">
+											<div class="crumbs__category">
+												{{item.paper}}
+											</div>
+											<div class="crumbs__time">
+												{{item.time}}
+											</div>
+										</div>
+										<div class="crumbs__rightside">
+											<div class="crumbs__share">
+												<svg class="share__icon">
+													<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
+												</svg>
+												Share
+											</div>
+											<div class="readlater">
+												<svg class="readlater__icon">
+													<use xlink:href="img/icons/icons.svg#pocket-crumbs-icon"></use>
+												</svg>
+												Read Later
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="showmore">
+								<button>Show More</button>
+							</div>
+							<div class="footer">
+								<div class="footer__line"></div>
+								<p class="footer__rights">© Aster News, 2022</p>
+								<div>
+									<span class="footer__policy">
+										Privacy Policy
+									</span>
+									<span class="footer__terms">
+										Terms of Service
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="main__aside">
+							<div class="aside__weather">
+								<div class="weather__top">
+									<h3 class="weather__city">Coimbatore, Tamil Nadu</h3>
+									<svg class="weather__icon">
+										<use xlink:href="img/icons/icons.svg#weather-crosshair-icon"></use>
+									</svg>
+								</div>
+								<div class="weather__middle">
+									<div class="middle__temp">
+										<span class="middle__type">Sunny</span>
+										<span class="middle__celcius">31&#8451</span>
+									</div>
+									<svg class="middle__icon">
+										<use xlink:href="img/icons/icons.svg#weather-sun-icon"></use>
+									</svg>
+								</div>
+								<div class="weather__bottom">
+									<span>Celsius</span>
+									<span>Fahrenheit</span>
+								</div>
+							</div>
+							<div class="aside__writers">
+								<div class="writers__top">
+									<svg class="writers__icon">
+										<use xlink:href="img/icons/icons.svg#creators-icon"></use>
+									</svg>
+									<span class="writers__title">Become a Story Writer</span>
+								</div>
+								<div class="writers__block">
+									<span class="block__text">Contribute stories and start earning.</span>
+									<button class="block__btn">Know More</button>
+								</div>
+							</div>
+							<div class="aside__bytes">
+								<div class="bytes__top">
+									<svg class="bytes__icon">
+										<use xlink:href="img/icons/icons.svg#aside-file-text-icon"></use>
+									</svg>
+									<h3 class="bytes__title">Quick Bytes</h3>
+								</div>
+								<div class="bytes__text">
+									<p class="text__one">
+										The price of petrol remained unchanged on July
+										6 after reaching a new record high on the previous day,
+										according to a price notification by state-owned fuel retailers.
+										The diesel price remained stable for the second consecutive day.
+									</p>
+									<p class="text__two">
+										The increase on July 5, 35th in two months, took the petrol
+										price in Delhi closer to Rs 100 per litre-mark. The petrol price
+										in the national capital soared to Rs 99.9 a litre and diesel was
+										priced at Rs 89.4 per litre, according to Bharat Petroleum's price listing.
+									</p>
+								</div>
+							</div>
+							<div class="aside__newsletter">
+								<h3 class="newsletter__title">
+									Subscribe to our newsletter
+								</h3>
+								<input class="newsletter__input" type="text" placeholder="Enter Email">
+								<button class="newsletter__btn">Subscribe</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -240,8 +358,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230124203655"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230124203655"></script>
+	<script src="js/app.min.js?_v=20230125151620"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230125151620"></script>
 
 	<script>
 		const {
@@ -299,7 +417,62 @@
 			}
 		];
 
+		const newsBottomArr = [{
+				title: "INDvENG Tests to be played in front of crowd",
+				text: "The 5-Test series between India & England is set to be played in front of packed..",
+				paper: "Sport Biz",
+				time: "7 hours ago",
+				img: "img/bottomnews/newsbottom-tests.png"
+			},
+			{
+				title: "The 10 Coolest Wearable Tech Gadgets Of 2021 (So Far)",
+				text: "Driven by demand for connected earbuds and a..",
+				paper: "The Mint",
+				time: "7 hours ago",
+				img: "img/bottomnews/newsbottom-gadgest.png"
+			},
+			{
+				title: "Biden's cold response to Afghanistan's collapse to have far consequences",
+				text: "When US President Joe Biden chose in April to withdraw all American forces from Afghanistan by September, we were among those who judged..",
+				paper: "Radar 52",
+				time: "8 hours ago",
+				img: ""
+			},
+			{
+				title: "Hardik Pandya 'is bowling and it is a very good sign' - Suryakumar",
+				text: "I think that the team management and Hardik..",
+				paper: "Cric Mint",
+				time: "9 hours ago",
+				img: "img/bottomnews/newsbottom-hardic.png"
+			}
+		]
+
 		const creatorsArr = [{
+				avatar: "img/creators/creators-shan-taylor.png",
+				name: "Shan Teylor",
+				newspaper: "Tech Mint",
+			},
+			{
+				avatar: "img/creators/creators-mary-angela.png",
+				name: "Mary Angela",
+				newspaper: "Live Mint",
+			},
+			{
+				avatar: "img/creators/creators-kyon.png",
+				name: "Kyon Cho Chi",
+				newspaper: "Bizz Daily",
+			},
+			{
+				avatar: "img/creators/creators-paul.png",
+				name: "Paul Livingstone",
+				newspaper: "Sport Biz",
+			},
+			{
+				avatar: "img/creators/creators-sara.png",
+				name: "Sara Jay",
+				newspaper: "Radar 52",
+			},
+			{
 				avatar: "img/creators/creators-shan-taylor.png",
 				name: "Shan Teylor",
 				newspaper: "Tech Mint",
@@ -330,6 +503,7 @@
 			data() {
 				return {
 					news: newsArr,
+					bottomnews: newsBottomArr,
 					creators: creatorsArr,
 				}
 			}
