@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230125151620">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230126191030">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230125151620" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230126191030" rel="stylesheet">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 	</div>
 </header> -->
 		<main class="page">
-			<section class="main">
+			<div class="main page__container">
 				<div class="menu">
 					<nav class="menu__list">
 						<li class="menu__item">
@@ -121,7 +121,7 @@
 						<button class="subscribe__button">Update</button>
 					</div>
 				</div>
-				<div class="main__block">
+				<div class="dashboard">
 					<div class="header">
 						<div class="header__search">
 							<input class="search__input" type="text" placeholder="Search for news..">
@@ -174,7 +174,10 @@
 												{{item.text}}
 											</p>
 										</div>
-										<picture><source srcset="item.img" type="image/webp"><img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy"></picture>
+										<picture>
+											<source :srcset="item.img" type="image/webp">
+											<img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy">
+										</picture>
 									</div>
 									<div class="crumbs">
 										<div class="crumbs__leftside">
@@ -212,7 +215,10 @@
 									</div>
 									<ul class="creators__list swiper-wrapper">
 										<li v-for="item in creators" class="list__item swiper-slide">
-											<picture><source srcset="item.avatar" type="image/webp"><img :src="item.avatar" :alt="item.name" class="item__avatar"></picture>
+											<picture>
+												<source :srcset="item.avatar" type="image/webp">
+												<img class="item__avatar" :src="item.img" :alt="item.name">
+											</picture>
 											<h4 class="item__title">{{item.name}}</h4>
 											<h5 class="item__subtitle">{{item.newspaper}}</h5>
 											<button class="item__bottom">Follow</button>
@@ -241,7 +247,10 @@
 												{{item.text}}
 											</p>
 										</div>
-										<picture><source srcset="item.img" type="image/webp"><img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy"></picture>
+										<picture>
+											<source :srcset="item.img" type="image/webp">
+											<img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy">
+										</picture>
 									</div>
 									<div class="crumbs">
 										<div class="crumbs__leftside">
@@ -351,15 +360,15 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</div>
 		</main>
 		<footer class="footer">
 			<div class="footer__container">
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230125151620"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230125151620"></script>
+	<script src="js/app.min.js?_v=20230126191030"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230126191030"></script>
 
 	<script>
 		const {
