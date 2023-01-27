@@ -162,6 +162,9 @@ svg {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 5px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -182,6 +185,7 @@ svg {
 
 .footer .footer__rights {
   opacity: 0.4;
+  margin-right: 15px;
 }
 
 .footer .footer__policy {
@@ -1451,6 +1455,14 @@ html.menu-open .main__news {
 @media (max-width: 860px) and (any-hover: none) {
   .header__burger {
     cursor: default;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 }
 
