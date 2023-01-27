@@ -1227,16 +1227,18 @@ html.menu-open .main__news {
 }
 
 @media (min-width: 91.25em) {
-  .dashboard {
-    max-width: 68.8125rem;
-  }
-
   .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
     width: 9.5rem;
   }
 
   .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
     height: 8.25rem;
+  }
+}
+
+@media (min-width: 860px) and (min-width: 91.25em) {
+  .dashboard {
+    max-width: 68.8125rem;
   }
 }
 
@@ -1467,10 +1469,6 @@ html.menu-open .main__news {
 }
 
 @media (max-width: 20em) {
-  .dashboard {
-    max-width: 6.25rem;
-  }
-
   .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
     width: 6.25rem;
   }
@@ -1480,7 +1478,7 @@ html.menu-open .main__news {
   }
 }
 
-@media (min-width: 20em) and (max-width: 91.25em) {
+@media (min-width: 860px) and (min-width: 20em) and (max-width: 91.25em) {
 @supports (max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem )) {
     .dashboard {
       max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem );
@@ -1492,7 +1490,15 @@ html.menu-open .main__news {
       max-width: calc(6.25rem + 62.5625 * (100vw - 20rem) / 71.25);
     }
 }
+}
 
+@media (min-width: 860px) and (max-width: 20em) {
+  .dashboard {
+    max-width: 6.25rem;
+  }
+}
+
+@media (min-width: 20em) and (max-width: 91.25em) {
 @supports (width: clamp( 6.25rem , 5.3377192982rem  +  4.5614035088vw , 9.5rem )) {
     .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
       width: clamp( 6.25rem , 5.3377192982rem  +  4.5614035088vw , 9.5rem );
