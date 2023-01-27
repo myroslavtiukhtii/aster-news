@@ -1242,7 +1242,7 @@ html.menu-open .main__news {
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1460px) {
   .main__news .main__aside .aside__writers .writers__block {
     gap: 10px;
   }
