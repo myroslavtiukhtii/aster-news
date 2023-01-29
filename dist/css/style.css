@@ -1004,28 +1004,25 @@ html.menu-open .main__news {
 }
 
 .main__news .main__aside .aside__weather .weather__middle .middle__icon {
-  width: 52px;
-  height: 52px;
-  stroke: #FFCF26;
+  width: 62px;
+  height: 62px;
 }
 
 .main__news .main__aside .aside__weather .weather__bottom span:first-child {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  color: #072D4B;
   margin-right: 23px;
 }
 
-.main__news .main__aside .aside__weather .weather__bottom span:last-child {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
+.main__news .main__aside .aside__weather .weather__bottom .temperature {
+  cursor: pointer;
   color: #072D4B;
   opacity: 0.3;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.main__news .main__aside .aside__weather .weather__bottom .temperature:hover {
+  color: #0768B5;
 }
 
 .main__news .main__aside .aside__writers {

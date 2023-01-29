@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230127195050">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230129163540">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230127195050" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230129163540" rel="stylesheet">
 </head>
 
 <body>
@@ -308,7 +308,7 @@
 								<div class="weather__middle">
 									<div class="middle__temp">
 										<span class="middle__type"> {{ type }} </span>
-										<span class="middle__celcius">{{ celsius }}</span>
+										<span class="middle__celcius">{{ celsius }} {{ symbol }}</span>
 									</div>
 									<picture>
 										<source :srcset="weatherImg" type="image/webp">
@@ -316,8 +316,12 @@
 									</picture>
 								</div>
 								<div class="weather__bottom">
-									<span>Celsius</span>
-									<span>Fahrenheit</span>
+									<span class="temperature" @click="toCelsius()">
+										Celsius
+									</span>
+									<span class="temperature" @click="toFarenheit()">
+										Fahrenheit
+									</span>
 								</div>
 							</div>
 							<div class="aside__writers">
@@ -371,15 +375,15 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230127195050"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230127195050"></script>
+	<script src="js/app.min.js?_v=20230129163540"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230129163540"></script>
 
 	<script>
 		const {
 			createApp
 		} = Vue;
 
-		const API = "https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&APPID=51b2fed96c3fb87af50c686f5494ee3f&units=metric";
+		let API = "https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&APPID=51b2fed96c3fb87af50c686f5494ee3f&units=metric";
 
 		const newsArr = [{
 				title: "Samsung Galaxy F22 launched in India: Price, features, other details",
@@ -522,11 +526,33 @@
 					creators: creatorsArr,
 					weather: null,
 					celsius: "",
+					symbol: "℃",
 					type: "",
-					weatherImg: "https://placekitten.com/200/300",
+					weatherImg: "",
 					iconID: "",
+					weatherBtn: false,
 				}
 			},
+
+			methods: {
+
+				toCelsius() {
+					if (this.weatherBtn === true) {
+						this.celsius = Math.round((this.celsius - 32) * 5 / 9);
+						this.symbol = "℃";
+						this.weatherBtn = false;
+					}
+				},
+
+				toFarenheit() {
+					if (this.weatherBtn === false) {
+						this.celsius = Math.round((this.celsius * 9 / 5) + 32);
+						this.symbol = "℉";
+						this.weatherBtn = true;
+					}
+				}
+			},
+
 			mounted() {
 				fetch(API)
 					.then((response) => response.json())
@@ -535,7 +561,7 @@
 						this.celsius = Math.round(this.weather.list[0].main.temp);
 						this.type = this.weather.list[0].weather[0].main;
 						this.iconID = this.weather.list[0].weather[0].icon;
-						console.log(data);
+						this.weatherImg = `img/weather-icons/${this.iconID}.png`
 					})
 					.catch((error) => {
 						console.log(error);
