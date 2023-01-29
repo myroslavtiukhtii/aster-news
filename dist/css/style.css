@@ -287,7 +287,6 @@ svg {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  height: 50px;
   padding-left: 33px;
   cursor: pointer;
   -webkit-transition: 0.3s ease-in;
@@ -302,10 +301,6 @@ svg {
   line-height: 21px;
   color: #0768B5;
   margin-bottom: 35px;
-}
-
-.menu__item:not(:first-child) {
-  margin-bottom: 19px;
 }
 
 .menu__item:nth-child(6) {
@@ -362,10 +357,6 @@ svg {
 .menu__link svg {
   width: 24px;
   height: 24px;
-}
-
-.menu__item:last-child {
-  margin-bottom: 100px;
 }
 
 .menu__subscribe {
@@ -555,7 +546,6 @@ html.menu-open .main__news {
   display: grid;
   -ms-grid-columns: 771px 1fr;
   grid-template-columns: 771px 1fr;
-  padding-top: 45px;
   padding-bottom: 79px;
   -webkit-column-gap: 45px;
      -moz-column-gap: 45px;
@@ -595,8 +585,7 @@ html.menu-open .main__news {
 .main__news .main__newsfeed .main__tags .tags__list .list__item {
   padding: 7px 15px;
   font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
+  line-height: 1;
   color: #072D4B;
   background: #FFFFFF;
   border: 1px solid #FFFFFF;
@@ -632,6 +621,10 @@ html.menu-open .main__news {
           box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   padding: 15px 20px;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+  cursor: pointer;
 }
 
 .main__news .main__newsfeed .newsfeed__list .list__item .item__top {
@@ -745,6 +738,11 @@ html.menu-open .main__news {
   width: 16px;
   height: 16px;
   stroke: #0768B5;
+}
+
+.main__news .main__newsfeed .newsfeed__list .list__item:hover {
+  -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .main__news .main__newsfeed .creators {
@@ -1006,6 +1004,12 @@ html.menu-open .main__news {
 .main__news .main__aside .aside__weather .weather__middle .middle__icon {
   width: 62px;
   height: 62px;
+  -webkit-animation-name: weathericon;
+          animation-name: weathericon;
+  -webkit-animation-duration: 5.5s;
+          animation-duration: 5.5s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 
 .main__news .main__aside .aside__weather .weather__bottom span:first-child {
@@ -1180,6 +1184,40 @@ html.menu-open .main__news {
   color: #FFFFFF;
 }
 
+@-webkit-keyframes weathericon {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px);
+  }
+
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes weathericon {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(3px);
+            transform: translateY(3px);
+  }
+
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
 .swiper {
   overflow: hidden;
 }
@@ -1224,6 +1262,26 @@ html.menu-open .main__news {
 }
 
 @media (min-width: 91.25em) {
+  .menu__item {
+    height: 3.125rem;
+  }
+
+  .menu__item:not(:first-child) {
+    margin-bottom: 1.1875rem;
+  }
+
+  .menu__item:last-child {
+    margin-bottom: 6.25rem;
+  }
+
+  .main__news {
+    padding-top: 2.8125rem;
+  }
+
+  .main__news .main__newsfeed .main__tags .tags__list .list__item {
+    font-size: 0.9375rem;
+  }
+
   .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
     width: 9.5rem;
   }
@@ -1369,6 +1427,12 @@ html.menu-open .main__news {
     left: -100%;
     padding-top: 80px;
     z-index: 9;
+    max-width: unset;
+    max-height: 100vh;
+  }
+
+  .menu__subscribe {
+    margin-left: 33px;
   }
 
   html.menu-open .menu {
@@ -1466,6 +1530,26 @@ html.menu-open .main__news {
 }
 
 @media (max-width: 20em) {
+  .menu__item {
+    height: 2.3125rem;
+  }
+
+  .menu__item:not(:first-child) {
+    margin-bottom: 0.5625rem;
+  }
+
+  .menu__item:last-child {
+    margin-bottom: 1.5625rem;
+  }
+
+  .main__news {
+    padding-top: 0.9375rem;
+  }
+
+  .main__news .main__newsfeed .main__tags .tags__list .list__item {
+    font-size: 0.6875rem;
+  }
+
   .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
     width: 6.25rem;
   }
@@ -1475,27 +1559,67 @@ html.menu-open .main__news {
   }
 }
 
-@media (min-width: 860px) and (min-width: 20em) and (max-width: 91.25em) {
-@supports (max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem )) {
-    .dashboard {
-      max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem );
-    }
-}
-
-@supports not (max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem )) {
-    .dashboard {
-      max-width: calc(6.25rem + 62.5625 * (100vw - 20rem) / 71.25);
-    }
-}
-}
-
-@media (min-width: 860px) and (max-width: 20em) {
-  .dashboard {
-    max-width: 6.25rem;
-  }
-}
-
 @media (min-width: 20em) and (max-width: 91.25em) {
+@supports (height: clamp( 2.3125rem , 2.0844298246rem  +  1.1403508772vw , 3.125rem )) {
+    .menu__item {
+      height: clamp( 2.3125rem , 2.0844298246rem  +  1.1403508772vw , 3.125rem );
+    }
+}
+
+@supports not (height: clamp( 2.3125rem , 2.0844298246rem  +  1.1403508772vw , 3.125rem )) {
+    .menu__item {
+      height: calc(2.3125rem + 0.8125 * (100vw - 20rem) / 71.25);
+    }
+}
+
+@supports (margin-bottom: clamp( 0.5625rem , 0.3870614035rem  +  0.8771929825vw , 1.1875rem )) {
+    .menu__item:not(:first-child) {
+      margin-bottom: clamp( 0.5625rem , 0.3870614035rem  +  0.8771929825vw , 1.1875rem );
+    }
+}
+
+@supports not (margin-bottom: clamp( 0.5625rem , 0.3870614035rem  +  0.8771929825vw , 1.1875rem )) {
+    .menu__item:not(:first-child) {
+      margin-bottom: calc(0.5625rem + 0.625 * (100vw - 20rem) / 71.25);
+    }
+}
+
+@supports (margin-bottom: clamp( 1.5625rem , 0.2467105263rem  +  6.5789473684vw , 6.25rem )) {
+    .menu__item:last-child {
+      margin-bottom: clamp( 1.5625rem , 0.2467105263rem  +  6.5789473684vw , 6.25rem );
+    }
+}
+
+@supports not (margin-bottom: clamp( 1.5625rem , 0.2467105263rem  +  6.5789473684vw , 6.25rem )) {
+    .menu__item:last-child {
+      margin-bottom: calc(1.5625rem + 4.6875 * (100vw - 20rem) / 71.25);
+    }
+}
+
+@supports (padding-top: clamp( 0.9375rem , 0.4111842105rem  +  2.6315789474vw , 2.8125rem )) {
+    .main__news {
+      padding-top: clamp( 0.9375rem , 0.4111842105rem  +  2.6315789474vw , 2.8125rem );
+    }
+}
+
+@supports not (padding-top: clamp( 0.9375rem , 0.4111842105rem  +  2.6315789474vw , 2.8125rem )) {
+    .main__news {
+      padding-top: calc(0.9375rem + 1.875 * (100vw - 20rem) / 71.25);
+    }
+}
+
+@supports (font-size: clamp( 0.6875rem , 0.6173245614rem  +  0.350877193vw , 0.9375rem )) {
+    .main__news .main__newsfeed .main__tags .tags__list .list__item {
+      font-size: clamp( 0.6875rem , 0.6173245614rem  +  0.350877193vw , 0.9375rem );
+    }
+}
+
+@supports not (font-size: clamp( 0.6875rem , 0.6173245614rem  +  0.350877193vw , 0.9375rem )) {
+    .main__news .main__newsfeed .main__tags .tags__list .list__item {
+      font-size: calc(0.6875rem + 0.25 * (100vw - 20rem) / 71.25);
+    }
+}
+
 @supports (width: clamp( 6.25rem , 5.3377192982rem  +  4.5614035088vw , 9.5rem )) {
     .main__news .main__newsfeed .newsfeed__list .list__item .item__img {
       width: clamp( 6.25rem , 5.3377192982rem  +  4.5614035088vw , 9.5rem );
@@ -1519,4 +1643,24 @@ html.menu-open .main__news {
       height: calc(5rem + 3.25 * (100vw - 20rem) / 71.25);
     }
 }
+}
+
+@media (min-width: 860px) and (min-width: 20em) and (max-width: 91.25em) {
+@supports (max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem )) {
+    .dashboard {
+      max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem );
+    }
+}
+
+@supports not (max-width: clamp( 6.25rem , -11.3114035088rem  +  87.8070175439vw , 68.8125rem )) {
+    .dashboard {
+      max-width: calc(6.25rem + 62.5625 * (100vw - 20rem) / 71.25);
+    }
+}
+}
+
+@media (min-width: 860px) and (max-width: 20em) {
+  .dashboard {
+    max-width: 6.25rem;
+  }
 }
