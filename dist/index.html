@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230129183406">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230130190739">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230129183406" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230130190739" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 	<div class="header__container">
 	</div>
 </header> -->
-		<main class="page">
+		<main @click="hideAll()" class="page">
 			<div class="main page__container">
 				<div class="menu">
 					<nav class="menu__list">
@@ -141,7 +141,7 @@
 								<use xlink:href="img/icons/icons.svg#menu-icon-arrow-right"></use>
 							</svg>
 						</div>
-						<div class="header__profile">
+						<div @click.stop="openUserSpoiler()" class="header__profile">
 							<svg class="profile__user">
 								<use xlink:href="img/icons/icons.svg#menu-icon-user"></use>
 							</svg>
@@ -149,6 +149,12 @@
 							<svg class="profile__arrow">
 								<use xlink:href="img/icons/icons.svg#menu-icon-arrowdown"></use>
 							</svg>
+							<Transition name="bounceUserSpoiler">
+								<div v-show="userSpoiler" class="spoiler__user">
+									<span>Settings</span>
+									<span>Log out</span>
+								</div>
+							</Transition>
 						</div>
 					</div>
 					<div class="main__news">
@@ -362,8 +368,11 @@
 								<h3 class="newsletter__title">
 									Subscribe to our newsletter
 								</h3>
-								<input class="newsletter__input" type="text" placeholder="Enter Email">
-								<button class="newsletter__btn">Subscribe</button>
+								<form action="#">
+									<input v-model="email" for="email" type="email" class="newsletter__input" required>
+									<p class="newsletter__p" v-if="email">Email is {{isValidEmail ? 'valid' : 'invalid'}}</p>
+									<button :disabled="!isValidEmail" class="newsletter__btn">Subscribe</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -375,8 +384,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230129183406"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230129183406"></script>
+	<script src="js/app.min.js?_v=20230130190739"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230130190739"></script>
 
 	<script>
 		const {
@@ -531,10 +540,26 @@
 					weatherImg: "",
 					iconID: "",
 					weatherBtn: false,
+					userSpoiler: false,
+					email: '',
 				}
 			},
 
+			computed: {
+				isValidEmail() {
+					return /^[^@]+@\w+(\.\w+)+\w$/.test(this.email);
+				},
+			},
+
 			methods: {
+
+				hideAll() {
+					this.userSpoiler = false;
+				},
+
+				openUserSpoiler() {
+					this.userSpoiler = !this.userSpoiler;
+				},
 
 				toCelsius() {
 					if (this.weatherBtn === true) {
