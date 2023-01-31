@@ -942,7 +942,7 @@ html.menu-open .main__news {
       -ms-flex-pack: center;
           justify-content: center;
   width: 142px;
-  height: 185px;
+  min-height: 220px;
   background: #FFFFFF;
   -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
           box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
@@ -952,6 +952,7 @@ html.menu-open .main__news {
 
 .main__news .main__newsfeed .creators .swiper__creators .creators__list .list__item .item__avatar {
   margin-bottom: 8px;
+  border-radius: 50%;
 }
 
 .main__news .main__newsfeed .creators .swiper__creators .creators__list .list__item .item__title {
@@ -975,7 +976,7 @@ html.menu-open .main__news {
   margin-bottom: 7px;
 }
 
-.main__news .main__newsfeed .creators .swiper__creators .creators__list .list__item .item__bottom {
+.main__news .main__newsfeed .creators .swiper__creators .creators__list .list__item .item__button {
   width: 116px;
   height: 32px;
   background: #2F9FF8;
@@ -986,6 +987,15 @@ html.menu-open .main__news {
   line-height: 18px;
   text-align: center;
   color: #FFFFFF;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.main__news .main__newsfeed .creators .swiper__creators .creators__list .list__item .item__button:hover {
+  background-color: #fff;
+  color: #2F9FF8;
+  border: 1px solid #2F9FF8;
 }
 
 .main__news .main__newsfeed .creators .swiper__creators .swiper-button-prev {

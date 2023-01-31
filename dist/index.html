@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230131161946">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230131182704">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230131161946" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230131182704" rel="stylesheet">
 </head>
 
 <body>
@@ -191,7 +191,7 @@
 									<div class="crumbs">
 										<div class="crumbs__leftside">
 											<div class="crumbs__source">
-												{{ item.source }}
+												<a target="_blank" :href="item.url" title="Open new link">{{ item.source }}</a>
 											</div>
 											<div class="crumbs__time">
 												{{ (item.published_at).slice(0, 10) }}
@@ -223,14 +223,14 @@
 										<h3 class="creators__title">Creators you should follow</h3>
 									</div>
 									<ul class="creators__list swiper-wrapper">
-										<li v-for="item in creators" class="list__item swiper-slide">
+										<li v-for="item in apicreators" class="list__item swiper-slide">
 											<picture>
-												<source :srcset="item.avatar" type="image/webp">
-												<img class="item__avatar" :src="item.img" :alt="item.name">
+												<source :srcset="item.picture.medium" type="image/webp">
+												<img class="item__avatar" :src="item.picture.medium" :alt="item.name.first">
 											</picture>
-											<h4 class="item__title">{{item.name}}</h4>
-											<h5 class="item__subtitle">{{item.newspaper}}</h5>
-											<button class="item__bottom">Follow</button>
+											<h4 class="item__title">{{`${item.name.first} ${item.name.last}`}}</h4>
+											<h5 class="item__subtitle">{{(item.location.city).split(' ')[0]}}</h5>
+											<button class="item__button">Follow</button>
 										</li>
 									</ul>
 									<div class="swiper-button-prev">
@@ -384,8 +384,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230131161946"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230131161946"></script>
+	<script src="js/app.min.js?_v=20230131182704"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230131182704"></script>
 
 	<script>
 		const {
@@ -394,6 +394,7 @@
 
 		let API = "https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&APPID=51b2fed96c3fb87af50c686f5494ee3f&units=metric";
 		let APINEWS = "https://api.thenewsapi.com/v1/news/all?api_token=GfEELUwazo0z7KRI69XK4fwHLZOSFvBDevL8SmMg&language=en";
+		let APIUSER = "https://randomuser.me/api/?results=10";
 
 		const apiNewsObj = {
 
@@ -619,15 +620,575 @@
 			},
 		]
 
-
+		const creatorsApiArr = [{
+				"gender": "female",
+				"name": {
+					"title": "Ms",
+					"first": "Diane",
+					"last": "Boyd"
+				},
+				"location": {
+					"street": {
+						"number": 3302,
+						"name": "Park Road"
+					},
+					"city": "Armagh",
+					"state": "Suffolk",
+					"country": "United Kingdom",
+					"postcode": "R1 3BD",
+					"coordinates": {
+						"latitude": "-12.1939",
+						"longitude": "29.7730"
+					},
+					"timezone": {
+						"offset": "-1:00",
+						"description": "Azores, Cape Verde Islands"
+					}
+				},
+				"email": "diane.boyd@example.com",
+				"login": {
+					"uuid": "41d6590d-ade1-4489-9225-35c4c81f9c77",
+					"username": "goldenelephant407",
+					"password": "bian",
+					"salt": "25hpIJKk",
+					"md5": "701176db857bb47ef66d818511daa906",
+					"sha1": "154fc2cadffc447abea4d6e24020bf2e4d81bf8e",
+					"sha256": "bcafe43e7eee55620f36514dd78ed88296e733a625723ea1f5b40f59c2534df7"
+				},
+				"dob": {
+					"date": "1987-11-25T10:23:58.933Z",
+					"age": 35
+				},
+				"registered": {
+					"date": "2008-03-20T10:49:34.816Z",
+					"age": 14
+				},
+				"phone": "015242 05029",
+				"cell": "07667 491787",
+				"id": {
+					"name": "NINO",
+					"value": "XL 82 47 73 E"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/74.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/74.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/74.jpg"
+				},
+				"nat": "GB"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Ms",
+					"first": "Eliza",
+					"last": "Adams"
+				},
+				"location": {
+					"street": {
+						"number": 5392,
+						"name": "Manor Road"
+					},
+					"city": "Bath",
+					"state": "Warwickshire",
+					"country": "United Kingdom",
+					"postcode": "J7 8YD",
+					"coordinates": {
+						"latitude": "-68.8011",
+						"longitude": "-174.8839"
+					},
+					"timezone": {
+						"offset": "-1:00",
+						"description": "Azores, Cape Verde Islands"
+					}
+				},
+				"email": "eliza.adams@example.com",
+				"login": {
+					"uuid": "a550baff-eeea-4e57-93fd-2e6c30fe3d38",
+					"username": "yellowostrich451",
+					"password": "butler",
+					"salt": "CxeECqay",
+					"md5": "5a78a8961a297e8a8f58e2a8a9c0db9a",
+					"sha1": "2416123317f0070a2e95baa335ec9fd91a6f6f8f",
+					"sha256": "4e2663aecbe9e3bc84ce4890003c92b4132ceb44675b35cb24867ec9b1b8652d"
+				},
+				"dob": {
+					"date": "1987-08-12T20:31:29.439Z",
+					"age": 35
+				},
+				"registered": {
+					"date": "2017-02-25T16:19:59.190Z",
+					"age": 5
+				},
+				"phone": "016977 0598",
+				"cell": "07872 729574",
+				"id": {
+					"name": "NINO",
+					"value": "RN 96 42 37 N"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/42.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/42.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
+				},
+				"nat": "GB"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Mrs",
+					"first": "Greetje",
+					"last": "Kats"
+				},
+				"location": {
+					"street": {
+						"number": 7593,
+						"name": "Buitendijk Oost"
+					},
+					"city": "Hijum",
+					"state": "Noord-Holland",
+					"country": "Netherlands",
+					"postcode": "3974 JS",
+					"coordinates": {
+						"latitude": "-0.5161",
+						"longitude": "-178.3284"
+					},
+					"timezone": {
+						"offset": "+3:00",
+						"description": "Baghdad, Riyadh, Moscow, St. Petersburg"
+					}
+				},
+				"email": "greetje.kats@example.com",
+				"login": {
+					"uuid": "804ff8eb-6e4c-4215-8c4a-0b658114185c",
+					"username": "beautifuldog495",
+					"password": "seattle",
+					"salt": "asv555yw",
+					"md5": "ffecfc3b71e96b0a13297538cb62bcb6",
+					"sha1": "0d314cd9128542a5035f2e62551a97d12c2bf21b",
+					"sha256": "09af238ef4b362e3af53cf1c7c31eb2a92e25d9bc2c2954bf8faa8a2ad359e46"
+				},
+				"dob": {
+					"date": "1975-07-27T08:54:35.147Z",
+					"age": 47
+				},
+				"registered": {
+					"date": "2002-07-23T21:23:37.768Z",
+					"age": 20
+				},
+				"phone": "(023) 0074119",
+				"cell": "(06) 62239535",
+				"id": {
+					"name": "BSN",
+					"value": "02408693"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/94.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/94.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/94.jpg"
+				},
+				"nat": "NL"
+			},
+			{
+				"gender": "male",
+				"name": {
+					"title": "Mr",
+					"first": "Granislav",
+					"last": "Timchak"
+				},
+				"location": {
+					"street": {
+						"number": 9512,
+						"name": "Motorniy provulok"
+					},
+					"city": "Svatove",
+					"state": "Harkivska",
+					"country": "Ukraine",
+					"postcode": 43915,
+					"coordinates": {
+						"latitude": "59.3155",
+						"longitude": "-39.6676"
+					},
+					"timezone": {
+						"offset": "+6:00",
+						"description": "Almaty, Dhaka, Colombo"
+					}
+				},
+				"email": "granislav.timchak@example.com",
+				"login": {
+					"uuid": "8ea7a37f-9748-4e54-b3bf-7eb5c08acfed",
+					"username": "whitezebra357",
+					"password": "mmmm",
+					"salt": "hwyt7oYp",
+					"md5": "e74b389a75804bd9108294111718a3d1",
+					"sha1": "c99b242d7fd39ee943ab1cf7dfdad83f030e8532",
+					"sha256": "51fdd151794136911de61e3826cb0b0ccc5a6651090e3b9e5bc57cd30016770b"
+				},
+				"dob": {
+					"date": "1991-06-04T09:18:46.041Z",
+					"age": 31
+				},
+				"registered": {
+					"date": "2021-06-07T19:49:48.291Z",
+					"age": 1
+				},
+				"phone": "(098) C01-2850",
+				"cell": "(099) X27-0091",
+				"id": {
+					"name": "",
+					"value": null
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/men/71.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/men/71.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/men/71.jpg"
+				},
+				"nat": "UA"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Mrs",
+					"first": "Olivia",
+					"last": "Jensen"
+				},
+				"location": {
+					"street": {
+						"number": 6452,
+						"name": "Vestervej"
+					},
+					"city": "Allinge",
+					"state": "Midtjylland",
+					"country": "Denmark",
+					"postcode": 42863,
+					"coordinates": {
+						"latitude": "-58.2668",
+						"longitude": "18.2477"
+					},
+					"timezone": {
+						"offset": "-6:00",
+						"description": "Central Time (US & Canada), Mexico City"
+					}
+				},
+				"email": "olivia.jensen@example.com",
+				"login": {
+					"uuid": "44a9b7f2-cdca-4251-a07f-9147770af713",
+					"username": "happyfrog980",
+					"password": "frogger",
+					"salt": "y2JftOKs",
+					"md5": "7a05c743d4d4e9fec63dffc1703fd262",
+					"sha1": "1e02bec1ff5fd4aad2808b6be53f0ce719decb68",
+					"sha256": "f61ed9f1522c1b9899b3ca6b0fd625510a3159ad4ab92d636d11f0347a1bdf64"
+				},
+				"dob": {
+					"date": "1987-11-25T21:30:51.606Z",
+					"age": 35
+				},
+				"registered": {
+					"date": "2021-02-27T20:05:32.967Z",
+					"age": 1
+				},
+				"phone": "15473162",
+				"cell": "76252852",
+				"id": {
+					"name": "CPR",
+					"value": "251187-0290"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/18.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/18.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/18.jpg"
+				},
+				"nat": "DK"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Mrs",
+					"first": "Samantha",
+					"last": "Harper"
+				},
+				"location": {
+					"street": {
+						"number": 3053,
+						"name": "Henry Street"
+					},
+					"city": "Ballina",
+					"state": "Donegal",
+					"country": "Ireland",
+					"postcode": 92645,
+					"coordinates": {
+						"latitude": "56.6477",
+						"longitude": "46.7081"
+					},
+					"timezone": {
+						"offset": "-9:00",
+						"description": "Alaska"
+					}
+				},
+				"email": "samantha.harper@example.com",
+				"login": {
+					"uuid": "394c467c-f47a-440f-9e7d-36cc627e40d6",
+					"username": "tinymeercat261",
+					"password": "cheyenne",
+					"salt": "o7E0vGnd",
+					"md5": "1705b4d159d77cf080f3b171a2c17d8b",
+					"sha1": "68abbd889020072bade633582d315a00a1615a37",
+					"sha256": "5444b0e2e43e9ea93122626ca1fb16c2708fe7856430b0c5a44555ab8d650ca9"
+				},
+				"dob": {
+					"date": "1967-11-30T23:08:50.043Z",
+					"age": 55
+				},
+				"registered": {
+					"date": "2005-01-14T22:09:50.898Z",
+					"age": 18
+				},
+				"phone": "021-409-2148",
+				"cell": "081-587-2693",
+				"id": {
+					"name": "PPS",
+					"value": "8171256T"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/56.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/56.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/56.jpg"
+				},
+				"nat": "IE"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Mrs",
+					"first": "Radmila",
+					"last": "Boychak"
+				},
+				"location": {
+					"street": {
+						"number": 1161,
+						"name": "Maydan Magdeburzkogo prava"
+					},
+					"city": "Bahmach",
+					"state": "Kiyivska",
+					"country": "Ukraine",
+					"postcode": 57443,
+					"coordinates": {
+						"latitude": "7.0603",
+						"longitude": "-26.5832"
+					},
+					"timezone": {
+						"offset": "+2:00",
+						"description": "Kaliningrad, South Africa"
+					}
+				},
+				"email": "radmila.boychak@example.com",
+				"login": {
+					"uuid": "0ef76177-4063-4fb6-8b7f-45ba6515a2ed",
+					"username": "redlion212",
+					"password": "corey",
+					"salt": "Lavp5yYj",
+					"md5": "52a1533f64394722278357a89022be1c",
+					"sha1": "457f0ceb44d0efe82ca4349bd3a204d911103a30",
+					"sha256": "408c0cfd17897c4d8ecaa314e7bd00fe7e63f25331292ba55ae64e1a3b588a90"
+				},
+				"dob": {
+					"date": "1978-03-20T18:31:14.132Z",
+					"age": 44
+				},
+				"registered": {
+					"date": "2011-04-08T23:04:09.162Z",
+					"age": 11
+				},
+				"phone": "(096) K47-5268",
+				"cell": "(099) L53-0020",
+				"id": {
+					"name": "",
+					"value": null
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/17.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/17.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/17.jpg"
+				},
+				"nat": "UA"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Miss",
+					"first": "Rebecca",
+					"last": "Thampy"
+				},
+				"location": {
+					"street": {
+						"number": 7543,
+						"name": "NAD X Rd"
+					},
+					"city": "Singrauli",
+					"state": "Karnataka",
+					"country": "India",
+					"postcode": 62093,
+					"coordinates": {
+						"latitude": "43.6451",
+						"longitude": "153.8174"
+					},
+					"timezone": {
+						"offset": "-11:00",
+						"description": "Midway Island, Samoa"
+					}
+				},
+				"email": "rebecca.thampy@example.com",
+				"login": {
+					"uuid": "7360f250-ae97-4744-b6a4-0593f356552b",
+					"username": "purplelion586",
+					"password": "kick",
+					"salt": "XgCi0piT",
+					"md5": "f55645c0ddff3c75399bf49c41407fff",
+					"sha1": "e49146a4c405a72de165fa960006c798210bb39d",
+					"sha256": "b020ef59edb16514bf9daf6b0aeb29fdeabae8b528048bc1fd281742b23d2e36"
+				},
+				"dob": {
+					"date": "1977-07-02T00:09:01.114Z",
+					"age": 45
+				},
+				"registered": {
+					"date": "2005-10-03T07:43:00.102Z",
+					"age": 17
+				},
+				"phone": "8384565924",
+				"cell": "7597816562",
+				"id": {
+					"name": "UIDAI",
+					"value": "695319196587"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/15.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/15.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/15.jpg"
+				},
+				"nat": "IN"
+			},
+			{
+				"gender": "female",
+				"name": {
+					"title": "Mrs",
+					"first": "ملینا",
+					"last": "علیزاده"
+				},
+				"location": {
+					"street": {
+						"number": 4095,
+						"name": "دماوند"
+					},
+					"city": "دزفول",
+					"state": "گیلان",
+					"country": "Iran",
+					"postcode": 14147,
+					"coordinates": {
+						"latitude": "-8.7046",
+						"longitude": "-71.2448"
+					},
+					"timezone": {
+						"offset": "-12:00",
+						"description": "Eniwetok, Kwajalein"
+					}
+				},
+				"email": "mlyn.aalyzdh@example.com",
+				"login": {
+					"uuid": "fd76cde8-54e8-4adb-800f-ba6908fecf30",
+					"username": "whitemouse358",
+					"password": "asdfgh",
+					"salt": "D7fnnr9a",
+					"md5": "c58d4509eecb5b7d7fa3eb38763d3610",
+					"sha1": "d50d8cb72d3d2ef349a550816712b84ea95cd856",
+					"sha256": "da6ce0aa908f559f7dc349918dc2e8e6c75e31bbe8dc13fb5744806e710acca3"
+				},
+				"dob": {
+					"date": "1967-09-26T00:19:56.255Z",
+					"age": 55
+				},
+				"registered": {
+					"date": "2005-11-21T20:40:35.813Z",
+					"age": 17
+				},
+				"phone": "001-24435071",
+				"cell": "0900-301-2433",
+				"id": {
+					"name": "",
+					"value": null
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/women/79.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/women/79.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/women/79.jpg"
+				},
+				"nat": "IR"
+			},
+			{
+				"gender": "male",
+				"name": {
+					"title": "Mr",
+					"first": "Bob",
+					"last": "Fletcher"
+				},
+				"location": {
+					"street": {
+						"number": 2185,
+						"name": "New Road"
+					},
+					"city": "Canterbury",
+					"state": "Gwent",
+					"country": "United Kingdom",
+					"postcode": "HF2B 5PA",
+					"coordinates": {
+						"latitude": "-50.5073",
+						"longitude": "72.7474"
+					},
+					"timezone": {
+						"offset": "+6:00",
+						"description": "Almaty, Dhaka, Colombo"
+					}
+				},
+				"email": "bob.fletcher@example.com",
+				"login": {
+					"uuid": "bb3a28e7-ab40-4595-99e6-027a77b9fadc",
+					"username": "beautifulduck131",
+					"password": "bowwow",
+					"salt": "gHZyzhXN",
+					"md5": "4219c41ed539a2524cb04f4fd1f5ad1d",
+					"sha1": "1c19ff1b466d177581169b45dc1b511716aaa83b",
+					"sha256": "4b728a76471a159759673a20fa1fe76529b4cf913f937b17fee63930d8dcd268"
+				},
+				"dob": {
+					"date": "1962-09-25T13:47:25.340Z",
+					"age": 60
+				},
+				"registered": {
+					"date": "2017-04-20T19:01:45.678Z",
+					"age": 5
+				},
+				"phone": "016977 4038",
+				"cell": "07533 625273",
+				"id": {
+					"name": "NINO",
+					"value": "KG 73 04 25 C"
+				},
+				"picture": {
+					"large": "https://randomuser.me/api/portraits/men/20.jpg",
+					"medium": "https://randomuser.me/api/portraits/med/men/20.jpg",
+					"thumbnail": "https://randomuser.me/api/portraits/thumb/men/20.jpg"
+				},
+				"nat": "GB"
+			}
+		]
 
 		createApp({
 			data() {
 				return {
+					apicreators: null,
 					apinews: null,
 					news: newsArr,
 					bottomnews: newsBottomArr,
-					creators: creatorsArr,
 					weather: null,
 					celsius: "",
 					symbol: "℃",
@@ -695,6 +1256,20 @@
 							this.apinews = data.data;
 						} else {
 							this.apinews = apiNewsObj.data;
+						}
+
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+
+				fetch(APIUSER)
+					.then((response) => response.json())
+					.then(data => {
+						if (data.results) {
+							this.apicreators = data.results;
+						} else {
+							this.apicreators = creatorsApiArr;
 						}
 
 					})
