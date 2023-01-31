@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230130190739">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230131161213">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230130190739" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230131161213" rel="stylesheet">
 </head>
 
 <body>
@@ -173,28 +173,28 @@
 								</ul>
 							</div>
 							<ul class="newsfeed__list">
-								<li v-for="item in news" class="list__item">
+								<li v-for="item in apinews" class="list__item">
 									<div class="item__top">
 										<div class="list_text">
 											<h3 class="item__title">
-												{{item.title}}
+												{{ item.title }}
 											</h3>
 											<p class="item__text">
-												{{item.text}}
+												{{ item.description }}
 											</p>
 										</div>
 										<picture>
-											<source :srcset="item.img" type="image/webp">
-											<img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy">
+											<source :srcset="item.image_url" type="image/webp">
+											<img v-show="item.image_url" class="item__img" :src="item.image_url" :alt="item.title">
 										</picture>
 									</div>
 									<div class="crumbs">
 										<div class="crumbs__leftside">
-											<div class="crumbs__category">
-												{{item.paper}}
+											<div class="crumbs__source">
+												{{ item.source }}
 											</div>
 											<div class="crumbs__time">
-												{{item.time}}
+												{{ (item.published_at).slice(0, 10) }}
 											</div>
 										</div>
 										<div class="crumbs__rightside">
@@ -263,7 +263,7 @@
 									</div>
 									<div class="crumbs">
 										<div class="crumbs__leftside">
-											<div class="crumbs__category">
+											<div class="crumbs__source">
 												{{item.paper}}
 											</div>
 											<div class="crumbs__time">
@@ -384,8 +384,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230130190739"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230130190739"></script>
+	<script src="js/app.min.js?_v=20230131161213"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230131161213"></script>
 
 	<script>
 		const {
@@ -393,6 +393,98 @@
 		} = Vue;
 
 		let API = "https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&APPID=51b2fed96c3fb87af50c686f5494ee3f&units=metric";
+		let APINEWS = "https://api.thenewsapi.com/v1/news/all?api_token=GfEELUwazo0z7KRI69XK4fwHLZOSFvBDevL8SmMg&language=en";
+
+		const apiNewsObj = {
+
+			meta: {
+				"found": 14622773,
+				"returned": 5,
+				"limit": 5,
+				"page": 1
+			},
+			data: [{
+					"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+					title: "8TURN aims to become new sensation unlike any other",
+					"description": "After four years of intense and strategic idol training, MNH Entertainment’s first K-pop boy group 8TURN made its debut Monday with its first mini album “8T...",
+					"keywords": "The Korea Herald, Korean news, koreaHerald, South Korea  news, South Korea  news in english, Asia News, K-POP, KPOP, 코리아헤럴드, 더코리아헤럴드, 코리아 헤럴드",
+					"snippet": "8TURN poses for photo at media showcase for its first mini album \"8TURNRISE\" held at Ilchi Art Hall in Seoul on Mon. (MNH Entertainment)\n\nAfter four years of in...",
+					"url": "https://www.koreaherald.com/view.php?ud=20230131000502",
+					"image_url": "https://res.heraldm.com/content/image/2023/01/31/20230131000459_0.jpg",
+					"language": "en",
+					"published_at": "2023-01-31T12:48:07.000000Z",
+					"source": "koreaherald.com",
+					"categories": [
+						"general"
+					],
+					"relevance_score": null
+				},
+				{
+					"uuid": "48e406fd-c820-4922-8509-169aaca5fb78",
+					title: "Anushka Sharma & Virat Kohli Seek Blessings at Rishikesh Ashram; See Pics",
+					"description": "Virat Kohli and Anushka Sharma were spotted in Rishikesh as they visited Swami Dayanand Giri Ashram.",
+					"keywords": "Anushka Sharma, Virat Kohli, Anushka Sharma movie, Virat Kohli news, Anushka sharma ashram, Virat and Anushka, Virat and anushka Ashram",
+					"snippet": "Some photos from the ashram are being circulated by their fans.\n\nTake a look here:",
+					"url": "https://www.thequint.com/entertainment/celebrities/anushka-sharma-virat-kohli-seek-blessings-at-rishikesh-ashram",
+					"image_url": "https://images.thequint.com/thequint%2F2023-01%2F98be61aa-0015-44bc-bea0-28760b7a9c5f%2FUntitled_design__10_.jpg?w=1200&auto=format%2Ccompress&ogImage=true&enlarge=true",
+					"language": "en",
+					"published_at": "2023-01-31T12:42:47.000000Z",
+					"source": "thequint.com",
+					"categories": [
+						"general"
+					],
+					"relevance_score": null
+				},
+				{
+					"uuid": "2afd6842-86f0-439c-b85c-c753a5537d74",
+					title: "Oppo Reno8 T 5G and Enco Air3 Launch Soon in India: Know Specs & Launch Details",
+					"description": "The Oppo Reno8 T 5G and Enco Air3 will launch in India on 3 February. Know the confirmed specifications of both devices here before the launch takes place in Fe...",
+					"keywords": "Oppo, Oppo Reno8 T 5G, Oppo Reno8 T 5G launch in India, Oppo Reno8 T 5G launch date in India, Oppo Reno8 T 5G launch, Oppo Reno8 T 5G launch date, Oppo Enco Air3 earbuds, Oppo Enco Air3 launch, Oppo Enco Air3 launch in India, Oppo Enco Air3 launch date in India, Oppo  Reno8 T 5G specifications, Oppo Enco Air3 specifications, Oppo Enco Air3 launch India",
+					"snippet": "Oppo India has officially confirmed that the Reno8 T 5G smartphone and Enco Air3 wireless earbuds will launch in India on 3 February 2023. Before this developme...",
+					"url": "https://www.thequint.com/tech-and-auto/gadgets/oppo-reno8-t-5g-and-enco-air3-launch-in-india-confirmed-know-specifications-here-important-details",
+					"image_url": "https://images.thequint.com/thequint%2F2023-01%2F4dfcc2de-1c1e-461c-a088-ef7c2693c9c7%2FiStock_1361012868.jpg?w=1200&auto=format%2Ccompress&ogImage=true&enlarge=true",
+					"language": "en",
+					"published_at": "2023-01-31T12:42:47.000000Z",
+					"source": "thequint.com",
+					"categories": [
+						"general"
+					],
+					"relevance_score": null
+				},
+				{
+					"uuid": "c5e7ef38-6b64-4de9-a253-42c1ba07ace5",
+					title: "Dipika Pallikal's Motherhood Journey: Struggle With Infertility, Winning Return",
+					"description": "Dipika Pallikal's Motherhood Journey: Struggle With Infertility, Winning Return",
+					"keywords": "dipika pallikal karthik, dipika pallikal, motherhood or medals, maternity leave, sports maternity leave",
+					"snippet": "\"When you announce you’re going to take a break to start a family, the first thought that comes to everyone's mind is – 'She’s done. She’s not going to ...",
+					"url": "https://www.thequint.com/sports/squash-player-dipika-pallikal-karthik-motherhood-journey-infertility",
+					"image_url": "https://images.thequint.com/thequint%2F2023-01%2F8364ad5b-8331-4bd8-b9fe-fc01aba84269%2Fdipika__1_.jpg?w=1200&auto=format%2Ccompress&ogImage=true&enlarge=true",
+					"language": "en",
+					"published_at": "2023-01-31T12:42:47.000000Z",
+					"source": "thequint.com",
+					"categories": [
+						"general"
+					],
+					"relevance_score": null
+				},
+				{
+					"uuid": "02e8add3-8c86-4b55-9869-5c4d802dcc8a",
+					title: "5 Home Remedies for Cracked Heels in Winter",
+					"description": "Cracked heels can be due to the lost moisture in the heels or due to constant friction while you walk barefoot. You need to wear thick socks, moisturize, and av...",
+					"keywords": "Cracked heels treatment, Cracked heels, Cracked heels home remedies, Cracked heels reasons, Cracked heels  in winter, Cracked heels  creams, Cracked heels  treatment at home, Cracked heels  tips home made, Cracked heels  care tips, Cracked heels removed tips",
+					"snippet": "Cracked heels are a common foot problem in winter. According to research, 20 percent of adults in the United States experience cracked skin on their feet but it...",
+					"url": "https://www.thequint.com/lifestyle/home-remedies-for-cracked-heels-in-winter",
+					"image_url": "https://images.thequint.com/thequint%2F2023-01%2F845c52bb-500e-4826-9f17-ccc2a88cecc7%2Fdry_and_cracked_heels_treatment_jpg_s_1024x1024_w_is_k_20_c_SKjxQC1yV_gH2tB4_l3XJiXEnka8ezu_I02MvRJ0.jpg?w=1200&auto=format%2Ccompress&ogImage=true&enlarge=true",
+					"language": "en",
+					"published_at": "2023-01-31T12:42:47.000000Z",
+					"source": "thequint.com",
+					"categories": [
+						"general"
+					],
+					"relevance_score": null
+				}
+			]
+		}
 
 		const newsArr = [{
 				title: "Samsung Galaxy F22 launched in Ukraine: Price, features, other details",
@@ -527,9 +619,12 @@
 			},
 		]
 
+
+
 		createApp({
 			data() {
 				return {
+					apinews: null,
 					news: newsArr,
 					bottomnews: newsBottomArr,
 					creators: creatorsArr,
@@ -579,6 +674,7 @@
 			},
 
 			mounted() {
+
 				fetch(API)
 					.then((response) => response.json())
 					.then(data => {
@@ -587,6 +683,20 @@
 						this.type = this.weather.list[0].weather[0].main;
 						this.iconID = this.weather.list[0].weather[0].icon;
 						this.weatherImg = `img/weather-icons/${this.iconID}.png`
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+
+				fetch(APINEWS)
+					.then((response) => response.json())
+					.then(data => {
+						if (data) {
+							this.apinews = data.data;
+						} else {
+							this.apinews = apiNewsObj.data;
+						}
+
 					})
 					.catch((error) => {
 						console.log(error);
