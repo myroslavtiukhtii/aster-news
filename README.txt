@@ -5,7 +5,7 @@ Home page of News company website.
 ___
 
 #### :link: Live Demo: 
-[SITE](https://myroslavtiukhtii.github.io/online-store/dist/)
+[SITE](https://myroslavtiukhtii.github.io/aster-news/dist/)
 
 [Design](The Free Library)
 ___
