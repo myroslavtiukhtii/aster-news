@@ -1,4 +1,4 @@
-## :pushpin: Online store site
+## :pushpin: Aster news site
 #### :memo: Description: 
 
 Home page of News company website.
