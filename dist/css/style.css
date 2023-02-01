@@ -446,6 +446,93 @@ svg {
           box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
+.share__modal {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  background-color: #87c7fb;
+  left: 50%;
+  min-width: 250px;
+  -webkit-transform: translate(-50%);
+      -ms-transform: translate(-50%);
+          transform: translate(-50%);
+  padding: 25px;
+  padding-top: 45px;
+  z-index: 999;
+  border-radius: 4px;
+}
+
+.share__modal .share__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+  margin-bottom: 25px;
+}
+
+.share__modal .share__list .list__item .item__icon img {
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.share__modal .share__list .list__item .item__icon:hover img {
+  scale: 1.1;
+}
+
+.share__modal .share__links {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.share__modal .share__links .share__link {
+  width: 100%;
+  min-height: 25px;
+  border-radius: 4px;
+}
+
+.share__modal .share__btn {
+  width: 150px;
+  min-height: 55px;
+  padding: 5px;
+  border-radius: 25px;
+  background-color: #fff;
+  color: #0768B5;
+  font-size: 25px;
+  text-align: center;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.share__modal .share__btn:hover {
+  background-color: #0768B5;
+  color: #fff;
+}
+
+.share__modal .close__btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
 .waiting {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1976,6 +2063,14 @@ html.menu-open .main__news {
     height: 8.25rem;
   }
 
+  .share__modal .share__list .list__item .item__icon img {
+    width: 4.6875rem;
+  }
+
+  .share__modal .share__list .list__item .item__icon img {
+    height: 4.6875rem;
+  }
+
   .menu__item {
     height: 3.125rem;
   }
@@ -2287,6 +2382,14 @@ html.menu-open .main__news {
     height: 5rem;
   }
 
+  .share__modal .share__list .list__item .item__icon img {
+    width: 1.5625rem;
+  }
+
+  .share__modal .share__list .list__item .item__icon img {
+    height: 1.5625rem;
+  }
+
   .menu__item {
     height: 2.3125rem;
   }
@@ -2338,6 +2441,30 @@ html.menu-open .main__news {
 @supports not (height: clamp( 5rem , 4.0877192982rem  +  4.5614035088vw , 8.25rem )) {
     .news__modal .newsfeed__list .list__item .item__img {
       height: calc(5rem + 3.25 * (100vw - 20rem) / 71.25);
+    }
+}
+
+@supports (width: clamp( 1.5625rem , 0.6853070175rem  +  4.3859649123vw , 4.6875rem )) {
+    .share__modal .share__list .list__item .item__icon img {
+      width: clamp( 1.5625rem , 0.6853070175rem  +  4.3859649123vw , 4.6875rem );
+    }
+}
+
+@supports not (width: clamp( 1.5625rem , 0.6853070175rem  +  4.3859649123vw , 4.6875rem )) {
+    .share__modal .share__list .list__item .item__icon img {
+      width: calc(1.5625rem + 3.125 * (100vw - 20rem) / 71.25);
+    }
+}
+
+@supports (height: clamp( 1.5625rem , 0.6853070175rem  +  4.3859649123vw , 4.6875rem )) {
+    .share__modal .share__list .list__item .item__icon img {
+      height: clamp( 1.5625rem , 0.6853070175rem  +  4.3859649123vw , 4.6875rem );
+    }
+}
+
+@supports not (height: clamp( 1.5625rem , 0.6853070175rem  +  4.3859649123vw , 4.6875rem )) {
+    .share__modal .share__list .list__item .item__icon img {
+      height: calc(1.5625rem + 3.125 * (100vw - 20rem) / 71.25);
     }
 }
 

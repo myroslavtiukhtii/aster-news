@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230201203956">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230201215847">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230201203956" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230201215847" rel="stylesheet">
 </head>
 
 <body>
@@ -211,6 +211,42 @@
 									</ul>
 								</div>
 							</Transition>
+							<Transition>
+								<div v-show="modalSocialArr.length > 0" class="share__modal">
+									<ul class="share__list">
+										<li class="list__item">
+											<a class="item__icon" href="#">
+												<img src="img/socials/icons-facebook-messenger.svg" alt="Facebook messenger icon">
+											</a>
+										</li>
+										<li class="list__item">
+											<a class="item__icon" href="#">
+												<img src="img/socials/icons-facebook.svg" alt="Facebook icon">
+											</a>
+										</li>
+										<li class="list__item">
+											<a class="item__icon" href="#">
+												<img src="img/socials/icons-instagram.svg" alt="Instagram icon">
+											</a>
+										</li>
+										<li class="list__item">
+											<a class="item__icon" href="#">
+												<img src="img/socials/icons-pinterest.svg" alt="Pinterest icon">
+											</a>
+										</li>
+										<li class="list__item">
+											<a class="item__icon" href="#">
+												<img src="img/socials/icons-twitter.svg" alt="Twitter icon">
+											</a>
+										</li>
+									</ul>
+									<div class="share__links">
+										<input class="share__link" v-for="item in modalSocialArr" type="text" :value="item.url">
+									</div>
+									<button @click="closeShareModal" class="share__btn">Share</button>
+									<button @click="closeShareModal" class="close__btn">Close</button>
+								</div>
+							</Transition>
 							<h2 class="main__title">Top Stories for you</h2>
 							<div class="main__tags">
 								<ul class="tags__list">
@@ -256,7 +292,7 @@
 												</div>
 											</div>
 											<div class="crumbs__rightside">
-												<div class="crumbs__share">
+												<div @click.stop="openShareModal(item)" class="crumbs__share">
 													<svg class="share__icon">
 														<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
 													</svg>
@@ -443,8 +479,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230201203956"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230201203956"></script>
+	<script src="js/app.min.js?_v=20230201215847"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230201215847"></script>
 
 	<script>
 		const {
@@ -1260,6 +1296,7 @@
 					email: '',
 					search: '',
 					modalArr: [],
+					modalSocialArr: []
 				}
 			},
 
@@ -1313,11 +1350,19 @@
 					let modalArr = [];
 					this.modalArr.push(item);
 					this.search = '';
-					console.log(this.modalArr);
 				},
 
 				closeModalNews() {
 					this.modalArr = [];
+				},
+
+				openShareModal(item) {
+					let modalSocialArr = [];
+					this.modalSocialArr.push(item);
+				},
+
+				closeShareModal() {
+					this.modalSocialArr = [];
 				}
 			},
 
