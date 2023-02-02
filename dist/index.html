@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230202194450">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230202194923">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202194450" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202194923" rel="stylesheet">
 </head>
 
 <body>
@@ -27,7 +27,10 @@
 					<nav class="menu__list">
 						<li @click.stop="getMenuType(item)" v-for="item in menuArr" class="menu__item">
 							<a class="menu__link" href="#">
-								<picture><source srcset="item.src" type="image/webp"><img :src="item.src" alt=""></picture>
+								<picture>
+									<source :srcset="item.src" type="image/webp">
+									<img v-show="item.src" :src="item.src" :alt="item.title">
+								</picture>
 								{{item.title}}
 							</a>
 						</li>
@@ -480,8 +483,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230202194450"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230202194450"></script>
+	<script src="js/app.min.js?_v=20230202194923"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230202194923"></script>
 
 	<script>
 		const {
