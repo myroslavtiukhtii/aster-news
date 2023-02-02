@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230202124652">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230202164007">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202124652" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202164007" rel="stylesheet">
 </head>
 
 <body>
@@ -25,90 +25,10 @@
 			<div class="main page__container">
 				<div class="menu">
 					<nav class="menu__list">
-						<li class="menu__item">
+						<li @click.stop="getMenuType(item)" v-for="item in menuArr" class="menu__item">
 							<a class="menu__link" href="#">
-								<picture><source srcset="img/main-logo.webp" type="image/webp"><img src="img/main-logo.png" alt="Logo Aster News"></picture>
-								Aster News
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-home"></use>
-								</svg>
-								Top Stories
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-globe"></use>
-								</svg>
-								Around the World
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-briefcase"></use>
-								</svg>
-								Business
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-activity"></use>
-								</svg>
-								Health
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-shield"></use>
-								</svg>
-								Covid 19
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-play-circle"></use>
-								</svg>
-								Entertainment
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-award"></use>
-								</svg>
-								Sports
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-message-circle"></use>
-								</svg>
-								Discussion
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-bell"></use>
-								</svg>
-								Notification
-							</a>
-						</li>
-						<li class="menu__item">
-							<a class="menu__link" href="#">
-								<svg>
-									<use xlink:href="img/icons/icons.svg#menu-icon-settings"></use>
-								</svg>
-								News Feed Settings
+								<picture><source srcset="item.src" type="image/webp"><img :src="item.src" alt=""></picture>
+								{{item.title}}
 							</a>
 						</li>
 					</nav>
@@ -275,19 +195,57 @@
 														{{ (item.published_at).slice(0, 10) }}
 													</div>
 												</div>
-												<div class="crumbs__rightside">
-													<div class="crumbs__share">
-														<svg class="share__icon">
-															<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
-														</svg>
-														Share
-													</div>
-												</div>
 											</div>
 										</li>
 									</ul>
 								</div>
 							</Transition>
+							<!--filterlist-->
+							<Transition>
+								<ul v-show="menuItemType" class="newsfeed__list">
+									<li v-for="item in filteredMenuNews" class="list__item">
+										<div class="item__top">
+											<div class="list_text">
+												<h3 class="item__title">
+													{{ item.title }}
+												</h3>
+												<p class="item__text">
+													{{ item.description }}
+												</p>
+											</div>
+											<picture>
+												<source :srcset="item.image_url" type="image/webp">
+												<img v-show="item.image_url" class="item__img" :src="item.image_url" :alt="item.title">
+											</picture>
+										</div>
+										<div class="crumbs">
+											<div class="crumbs__leftside">
+												<div class="crumbs__source">
+													<a target="_blank" :href="item.url" title="Open new link">{{ item.source }}</a>
+												</div>
+												<div class="crumbs__time">
+													{{ (item.published_at).slice(0, 10) }}
+												</div>
+											</div>
+											<div class="crumbs__rightside">
+												<div @click.stop="openShareModal(item)" class="crumbs__share">
+													<svg class="share__icon">
+														<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
+													</svg>
+													Share
+												</div>
+												<div @click="addReadLater(item)" class="readlater">
+													<svg class="readlater__icon">
+														<use xlink:href="img/icons/icons.svg#pocket-crumbs-icon"></use>
+													</svg>
+													Read Later
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</Transition>
+							<!---->
 							<h2 class="main__title">Top Stories for you</h2>
 							<div class="main__tags">
 								<ul class="tags__list">
@@ -522,8 +480,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230202124652"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230202124652"></script>
+	<script src="js/app.min.js?_v=20230202164007"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230202164007"></script>
 
 	<script>
 		const {
@@ -1321,13 +1279,240 @@
 			}
 		]
 
+		const newsFilter = [{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "Shell reports highest profits in 115 years",
+				"description": "Oil and gas giant Shell has reported record annual profits after energy prices surged last year following Russia's invasion of Ukraine",
+				"url": "https://www.bbc.com/news/uk-64489147",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/E3A7/production/_128497285_shell_gettyimages-1241067700.jpg.webp",
+				"language": "en",
+				"published_at": "2023-02-02T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "top"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "Ukraine war: Russia planning 24 February offensive, Ukrainian defence minister says",
+				"description": "Ukraine's defence minister has said Russia is preparing a major new offensive, and warned that it could begin as soon as 24 February.",
+				"url": "https://www.bbc.com/news/world-europe-64492938",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/1396F/production/_128493208_gettyimages-1457894411.jpg.webp",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "top"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "US secures deal on Philippines bases to complete arc around China",
+				"description": "The US has secured access to four additional military bases in the Philippines - a key bit of real estate which would offer a front seat to monitor the Chinese in the South China Sea and around Taiwan.",
+				"url": "https://www.bbc.com/news/world-asia-64479712",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/6C65/production/_128494772_gettyimages-1246733371.jpg.webp",
+				"language": "en",
+				"published_at": "2023-02-03T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "world"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "Russian army officer admits: 'Our troops tortured Ukrainians'",
+				"description": "Allegations of brutal interrogations, where Ukrainian men were shot and threatened with rape, have been made by a former Russian military officer.",
+				"url": "https://www.bbc.com/news/world-europe-64470092",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/7E65/production/_128475323_1024-ee.jpg.webp",
+				"language": "en",
+				"published_at": "2023-02-02T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "world"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "UK to see shorter recession, says Bank of England",
+				"description": "The UK is set to enter recession this year but it will be shorter and less severe than previously thought, according to the Bank of England.",
+				"url": "https://www.bbc.com/news/business-64487179",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/FC9C/production/_128186646_gettyimages-1364780681.jpg.webp",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "business"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				title: "Adani: How the billionaire's empire lost $100bn in days",
+				"description": "Indian billionaire Gautam Adani has sought to reassure investors after his company pulled a surprise by calling off its share sale.",
+				"url": "https://www.bbc.com/news/world-asia-india-64494466",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/2CE1/production/_128498411_gettyimages-1243800667-594x594.jpg.webp",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "business"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				title: "Mental health: Anxiety, depression and self-harm on rise among teens",
+				"description": "The number of teenagers seeking help for mental health problems is increasing rapidly, according to children's charities. The BBC went to Northamptonshire to talk to young people affected and those trying to help.",
+				"url": "https://www.bbc.com/news/uk-england-northamptonshire-59261963",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/110FB/production/_120738896_gettyimages-1141964045.jpg.webp",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "health"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				title: "New grants to improve Staffordshire young adults' mental healthr",
+				"description": "More than £160,000 worth of grants has been made available for Staffordshire community organisations to help young adults with mental health conditions.",
+				"url": "https://www.bbc.com/news/uk-england-stoke-staffordshire-64488567",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/166AB/production/_128491819_generic5.jpg.webp",
+				"language": "en",
+				"published_at": "2023-02-02T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "health"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "Wiltshire long Covid unit has more than 2,500 referrals",
+				"description": "More than 2,500 people in Wiltshire have been referred to a special medical unit dealing with long Covid and its mental health impacts.",
+				"url": "https://www.bbc.com/news/uk-england-wiltshire-64451559",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/3D94/production/_109246751_tv000153373.jpg.webp",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "covid"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "Covid: Powys doctor given nine-month ban for false claimsr",
+				"description": "A private doctor who put false claims about Covid-19 treatments online has been banned from practising for nine months after a medical tribunal.",
+				"url": "https://www.bbc.com/news/uk-wales-64457153",
+				"image_url": "https://ichef.bbci.co.uk/news/976/cpsprodpb/2090/production/_128463380_screenshot2023-01-30150015.jpg.webp",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "covid"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				title: "Knock at the Cabin review: 'Passably tense'",
+				"description": "Despite its intriguing premise, M Night Shyamalan's new high-concept chiller Knock at the Cabin has 'one-dimensional characters and functional dialogue', writes Nicholas Barber.",
+				"url": "https://www.bbc.com/culture/article/20230201-m-night-shyamalans-knock-at-the-cabin-is-passably-tense",
+				"image_url": "https://ychef.files.bbci.co.uk/1600x900/p0f0byh1.webp",
+				"language": "en",
+				"published_at": "2023-01-28T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "entertainment"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "The 80s artists who predicted the future",
+				"description": "Is the infinite imagery and information of the internet at saturation point? Emily Steer explores the art of mass-media 'incomprehension' from the 1960s to today.",
+				"url": "https://www.bbc.com/culture/article/20230201-have-we-reached-mass-media-overload",
+				"image_url": "https://ychef.files.bbci.co.uk/1600x900/p0f0b8ly.webp",
+				"language": "en",
+				"published_at": "2023-01-30T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "entertainment"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "EFL Cup: Man Utd v Newcastle Utd Wembley final to have safe standing areas",
+				"description": "Some supporters will be permitted to stand during the EFL Cup final between Manchester United and Newcastle United.",
+				"url": "https://www.bbc.com/sport/football/64498736",
+				"image_url": "https://ichef.bbci.co.uk/onesport/cps/976/cpsprodpb/88A3/production/_128497943_gettyimages-1427655400.jpg",
+				"language": "en",
+				"published_at": "2023-02-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "sports"
+			},
+			{
+				"uuid": "3a96eba4-2564-4c74-a635-be0ca2f7fbd7",
+				"title": "Six Nations 2023: Manu Tuilagi set to be left out for England against Scotland",
+				"description": "Manu Tuilagi is expected to be left out of Steve Borthwick's England team to face Scotland at Twickenham on Saturday, with Joe Marchant in line to start in the centre.",
+				"url": "https://www.bbc.com/sport/rugby-union/64495208",
+				"image_url": "https://ichef.bbci.co.uk/onesport/cps/976/cpsprodpb/B387/production/_128495954_gettyimages-1246565340.jpg",
+				"language": "en",
+				"published_at": "2023-01-31T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "sports"
+			},
+			{
+				"title": "Manchester United 2-0 Nottingham Forest (5-0 on agg): Final nothing without victory - Erik ten Hag",
+				"description": "Manchester United manager Erik ten Hag has told his players a Wembley appearance will mean nothing unless they beat Newcastle in the EFL Cup final on 26 February.",
+				"url": "https://www.bbc.com/sport/football/64493654",
+				"image_url": "https://ichef.bbci.co.uk/onesport/cps/976/cpsprodpb/7A11/production/_128494213_gettyimages-1246724732.jpg",
+				"language": "en",
+				"published_at": "2023-02-02T12:48:07.000000Z",
+				"source": "bbc.com",
+				"categories": "sports"
+			},
+
+
+		]
+
+		const menuCategories = [{
+				title: "Aster News",
+				categories: null,
+				src: "img/menu/aster-logo.svg"
+			},
+			{
+				title: "Top stories",
+				categories: "top",
+				src: "img/menu/menu-icon-home.svg",
+			},
+			{
+				title: "Around the World",
+				categories: "world",
+				src: "img/menu/menu-icon-globe.svg"
+			},
+			{
+				title: "Business",
+				categories: "business",
+				src: "img/menu/menu-icon-briefcase.svg"
+			},
+			{
+				title: "Health",
+				categories: "health",
+				src: "img/menu/menu-icon-activity.svg"
+			},
+			{
+				title: "Covid 19",
+				categories: "covid",
+				src: "img/menu/menu-icon-shield.svg"
+			},
+			{
+				title: "Entertainment",
+				categories: "entertainment",
+				src: "img/menu/menu-icon-play-circle.svg"
+			},
+			{
+				title: "Sports",
+				categories: "sports",
+				src: "img/menu/menu-icon-award.svg"
+			},
+			{
+				title: "Discussion",
+				categories: null,
+				src: "img/menu/menu-icon-message-circle.svg"
+			},
+			{
+				title: "Notification",
+				categories: null,
+				src: "img/menu/menu-icon-bell.svg"
+			},
+			{
+				title: "News Feed Settings",
+				categories: null,
+				src: "img/menu/menu-icon-settings.svg"
+			}
+		];
+
 		createApp({
 			data() {
 				return {
+					menuArr: menuCategories,
 					apicreators: null,
 					apinews: null,
 					apiAllNews: null,
 					sortnews: [],
+					newsFilter: newsFilter,
 					news: newsArr,
 					bottomnews: newsBottomArr,
 					weather: null,
@@ -1344,6 +1529,7 @@
 					modalSocialArr: [],
 					readLaterArr: [],
 					isActive: false,
+					menuItemType: ''
 				}
 			},
 
@@ -1363,7 +1549,21 @@
 					return this.sortnews.filter(item => {
 						return item.title.toLowerCase().includes(this.search.toLowerCase())
 					}).sort(compare)
-				}
+				},
+
+				filteredMenuNews() {
+					console.log(this.menuItemType)
+
+					function compare(a, b) {
+						if (a.categories < b.categories) return -1;
+						if (a.categories > b.categories) return 1;
+						return 0;
+					}
+
+					return this.newsFilter.filter(item => {
+						return item.categories.toLowerCase().includes(this.menuItemType.toLowerCase())
+					}).sort(compare)
+				},
 
 			},
 
@@ -1424,6 +1624,10 @@
 
 				showMoreNews() {
 					this.apiAllNews = this.apiAllNews.concat(this.apinews);
+				},
+
+				getMenuType(item) {
+					this.menuItemType = item.categories;
 				}
 			},
 
