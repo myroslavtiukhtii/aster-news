@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230202164007">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230202194450">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202164007" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202194450" rel="stylesheet">
 </head>
 
 <body>
@@ -480,8 +480,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230202164007"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230202164007"></script>
+	<script src="js/app.min.js?_v=20230202194450"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230202194450"></script>
 
 	<script>
 		const {
@@ -1552,17 +1552,17 @@
 				},
 
 				filteredMenuNews() {
-					console.log(this.menuItemType)
+					if (this.menuItemType != null) {
+						function compare(a, b) {
+							if (a.categories < b.categories) return -1;
+							if (a.categories > b.categories) return 1;
+							return 0;
+						}
 
-					function compare(a, b) {
-						if (a.categories < b.categories) return -1;
-						if (a.categories > b.categories) return 1;
-						return 0;
+						return this.newsFilter.filter(item => {
+							return item.categories.toLowerCase().includes(this.menuItemType.toLowerCase())
+						}).sort(compare)
 					}
-
-					return this.newsFilter.filter(item => {
-						return item.categories.toLowerCase().includes(this.menuItemType.toLowerCase())
-					}).sort(compare)
 				},
 
 			},
@@ -1615,7 +1615,6 @@
 				addReadLater(item) {
 					this.isActive = !this.isActive;
 					this.readLaterArr.push(item);
-					console.log(this.readLaterArr);
 				},
 
 				closeModalLater() {
