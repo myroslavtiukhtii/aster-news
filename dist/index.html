@@ -6,13 +6,13 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230201215847">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230202124652">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230201215847" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230202124652" rel="stylesheet">
 </head>
 
 <body>
@@ -193,13 +193,13 @@
 													</div>
 												</div>
 												<div class="crumbs__rightside">
-													<div class="crumbs__share">
+													<div @click.stop="openShareModal(item)" class="crumbs__share">
 														<svg class="share__icon">
 															<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
 														</svg>
 														Share
 													</div>
-													<div class="readlater">
+													<div @click="addReadLater(item)" class="readlater">
 														<svg class="readlater__icon">
 															<use xlink:href="img/icons/icons.svg#pocket-crumbs-icon"></use>
 														</svg>
@@ -247,10 +247,53 @@
 									<button @click="closeShareModal" class="close__btn">Close</button>
 								</div>
 							</Transition>
+							<Transition>
+								<div v-show="isActive" class="later__modal">
+									<button @click="closeModalLater">Close</button>
+									<ul class="modal__list">
+										<li v-for="item in readLaterArr" class="list__item">
+											<div class="item__top">
+												<div class="list_text">
+													<h3 class="item__title">
+														{{ item.title }}
+													</h3>
+													<p class="item__text">
+														{{ item.description }}
+													</p>
+												</div>
+												<picture>
+													<source :srcset="item.image_url" type="image/webp">
+													<img v-show="item.image_url" class="item__img" :src="item.image_url" :alt="item.title">
+												</picture>
+											</div>
+											<div class="crumbs">
+												<div class="crumbs__leftside">
+													<div class="crumbs__source">
+														<a target="_blank" :href="item.url" title="Open new link">{{ item.source }}</a>
+													</div>
+													<div class="crumbs__time">
+														{{ (item.published_at).slice(0, 10) }}
+													</div>
+												</div>
+												<div class="crumbs__rightside">
+													<div class="crumbs__share">
+														<svg class="share__icon">
+															<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
+														</svg>
+														Share
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</Transition>
 							<h2 class="main__title">Top Stories for you</h2>
 							<div class="main__tags">
 								<ul class="tags__list">
-									<li v-for="item in apinews" v-show="item.source" class="list__item"> {{ item.source }} </li>
+									<li v-for="item in apinews" v-show="item.source" class="list__item">
+										<a target="_blank" :href="`https://${item.source}`"> {{ item.source }} </a>
+									</li>
 								</ul>
 							</div>
 							<div v-show="!apinews" class="waiting">
@@ -298,7 +341,7 @@
 													</svg>
 													Share
 												</div>
-												<div class="readlater">
+												<div @click="addReadLater(item)" class="readlater">
 													<svg class="readlater__icon">
 														<use xlink:href="img/icons/icons.svg#pocket-crumbs-icon"></use>
 													</svg>
@@ -341,38 +384,38 @@
 								</div>
 							</div>
 							<ul class="newsfeed__list _bottom__list">
-								<li v-for="item in bottomnews" class="list__item">
+								<li v-for="item in apiAllNews" class="list__item">
 									<div class="item__top">
 										<div class="list_text">
 											<h3 class="item__title">
-												{{item.title}}
+												{{ item.title }}
 											</h3>
 											<p class="item__text">
-												{{item.text}}
+												{{ item.description }}
 											</p>
 										</div>
 										<picture>
-											<source :srcset="item.img" type="image/webp">
-											<img v-show="item.img" class="item__img" :src="item.img" alt="Samsung Galaxy">
+											<source :srcset="item.image_url" type="image/webp">
+											<img v-show="item.image_url" class="item__img" :src="item.image_url" :alt="item.title">
 										</picture>
 									</div>
 									<div class="crumbs">
 										<div class="crumbs__leftside">
 											<div class="crumbs__source">
-												{{item.paper}}
+												<a target="_blank" :href="item.url" title="Open new link">{{ item.source }}</a>
 											</div>
 											<div class="crumbs__time">
-												{{item.time}}
+												{{ (item.published_at).slice(0, 10) }}
 											</div>
 										</div>
 										<div class="crumbs__rightside">
-											<div class="crumbs__share">
+											<div @click.stop="openShareModal(item)" class="crumbs__share">
 												<svg class="share__icon">
 													<use xlink:href="img/icons/icons.svg#share-crumbs-icon"></use>
 												</svg>
 												Share
 											</div>
-											<div class="readlater">
+											<div @click="addReadLater(item)" class="readlater">
 												<svg class="readlater__icon">
 													<use xlink:href="img/icons/icons.svg#pocket-crumbs-icon"></use>
 												</svg>
@@ -383,7 +426,7 @@
 								</li>
 							</ul>
 							<div class="showmore">
-								<button>Show More</button>
+								<button @click="showMoreNews">Show More</button>
 							</div>
 							<div data-da=".main__news,1050" class="footer">
 								<div class="footer__line"></div>
@@ -479,8 +522,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230201215847"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230201215847"></script>
+	<script src="js/app.min.js?_v=20230202124652"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230202124652"></script>
 
 	<script>
 		const {
@@ -488,7 +531,8 @@
 		} = Vue;
 
 		let API = "https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&APPID=51b2fed96c3fb87af50c686f5494ee3f&units=metric";
-		let APINEWS = "https://api.thenewsapi.com/v1/news/all?api_token=GfEELUwazo0z7KRI69XK4fwHLZOSFvBDevL8SmMg&language=en";
+		let APINEWS = "https://api.thenewsapi.com/v1/news/top?api_token=GfEELUwazo0z7KRI69XK4fwHLZOSFvBDevL8SmMg&language=en";
+		let APIALLNEWS = "https://api.thenewsapi.com/v1/news/all?api_token=GfEELUwazo0z7KRI69XK4fwHLZOSFvBDevL8SmMg&language=en";
 		let APIUSER = "https://randomuser.me/api/?results=10";
 
 		const apiNewsObj = {
@@ -1282,6 +1326,7 @@
 				return {
 					apicreators: null,
 					apinews: null,
+					apiAllNews: null,
 					sortnews: [],
 					news: newsArr,
 					bottomnews: newsBottomArr,
@@ -1296,7 +1341,9 @@
 					email: '',
 					search: '',
 					modalArr: [],
-					modalSocialArr: []
+					modalSocialArr: [],
+					readLaterArr: [],
+					isActive: false,
 				}
 			},
 
@@ -1363,6 +1410,20 @@
 
 				closeShareModal() {
 					this.modalSocialArr = [];
+				},
+
+				addReadLater(item) {
+					this.isActive = !this.isActive;
+					this.readLaterArr.push(item);
+					console.log(this.readLaterArr);
+				},
+
+				closeModalLater() {
+					this.isActive = !this.isActive;
+				},
+
+				showMoreNews() {
+					this.apiAllNews = this.apiAllNews.concat(this.apinews);
 				}
 			},
 
@@ -1390,6 +1451,20 @@
 						} else {
 							this.apinews = apiNewsObj.data;
 							this.sortnews = apiNewsObj.data;
+						}
+
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+
+				fetch(APIALLNEWS)
+					.then((response) => response.json())
+					.then(data => {
+						if (data.data) {
+							this.apiAllNews = data.data;
+						} else {
+							this.apiAllNews = apiNewsObj.data;
 						}
 
 					})
