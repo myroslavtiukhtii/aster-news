@@ -270,6 +270,7 @@ svg {
 .news__modal {
   position: absolute;
   background-color: rgba(135, 199, 251, 0.5960784314);
+  top: 10%;
   left: 50%;
   -webkit-transform: translate(-50%);
       -ms-transform: translate(-50%);
@@ -462,6 +463,7 @@ svg {
           justify-content: center;
   position: fixed;
   background-color: rgba(135, 199, 251, 0.5882352941);
+  top: 10%;
   left: 50%;
   min-width: 300px;
   -webkit-transform: translate(-50%);
@@ -549,11 +551,14 @@ svg {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: rgba(135, 199, 251, 0.5294117647);
+  top: 10%;
   left: 50%;
   min-width: 300px;
   -webkit-transform: translate(-50%);
       -ms-transform: translate(-50%);
           transform: translate(-50%);
+  padding: 10px;
+  padding-top: 45px;
   z-index: 999;
   border-radius: 4px;
   overflow-y: initial;
@@ -2253,14 +2258,6 @@ html.menu-open .main__news {
     height: 4.6875rem;
   }
 
-  .later__modal {
-    padding: 1.5625rem;
-  }
-
-  .later__modal {
-    padding-top: 2.8125rem;
-  }
-
   .later__modal .modal__list .list__item .item__img {
     width: 9.5rem;
   }
@@ -2631,14 +2628,6 @@ html.menu-open .main__news {
     height: 1.875rem;
   }
 
-  .later__modal {
-    padding: 0.3125rem;
-  }
-
-  .later__modal {
-    padding-top: 2.8125rem;
-  }
-
   .later__modal .modal__list .list__item .item__img {
     width: 6.25rem;
   }
@@ -2726,30 +2715,6 @@ html.menu-open .main__news {
 @supports not (height: clamp( 1.875rem , 1.0855263158rem  +  3.9473684211vw , 4.6875rem )) {
     .share__modal .share__list .list__item .item__icon img {
       height: calc(1.875rem + 2.8125 * (100vw - 20rem) / 71.25);
-    }
-}
-
-@supports (padding: clamp( 0.3125rem , -0.038377193rem  +  1.7543859649vw , 1.5625rem )) {
-    .later__modal {
-      padding: clamp( 0.3125rem , -0.038377193rem  +  1.7543859649vw , 1.5625rem );
-    }
-}
-
-@supports not (padding: clamp( 0.3125rem , -0.038377193rem  +  1.7543859649vw , 1.5625rem )) {
-    .later__modal {
-      padding: calc(0.3125rem + 1.25 * (100vw - 20rem) / 71.25);
-    }
-}
-
-@supports (padding-top: clamp( 2.8125rem , 2.8125rem  +  0vw , 2.8125rem )) {
-    .later__modal {
-      padding-top: clamp( 2.8125rem , 2.8125rem  +  0vw , 2.8125rem );
-    }
-}
-
-@supports not (padding-top: clamp( 2.8125rem , 2.8125rem  +  0vw , 2.8125rem )) {
-    .later__modal {
-      padding-top: calc(2.8125rem + 0 * (100vw - 20rem) / 71.25);
     }
 }
 
