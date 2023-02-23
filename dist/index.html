@@ -6,13 +6,14 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20230203102412">
+	<link rel="stylesheet" href="css/style.min.css?_v=20230223150054">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230203102412" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap&_v=20230223150054" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css?_v=20230223150054" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -25,7 +26,7 @@
 			<div class="main page__container">
 				<div class="menu">
 					<nav class="menu__list">
-						<li @click.stop="getMenuType(item)" v-for="item in menuArr" class="menu__item">
+						<li @click.stop="getMenuType(item), closeBurgerMenu()" v-for="item in menuArr" class="menu__item">
 							<a class="menu__link" href="#">
 								<picture>
 									<source :srcset="item.src" type="image/webp">
@@ -46,7 +47,7 @@
 				</div>
 				<div class="dashboard">
 					<div class="header">
-						<div class="header__burger">
+						<div @click="toggleBurgerMenu" class="header__burger">
 							<span></span>
 						</div>
 						<div class="header__search">
@@ -474,6 +475,9 @@
 								</form>
 							</div>
 						</div>
+						<button ref="upBtn" @click="toUpWindow" class="main__upbtn">
+							<i class="fa-solid fa-caret-up"></i>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -483,8 +487,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20230203102412"></script>
-	<script src="https://unpkg.com/vue@next?_v=20230203102412"></script>
+	<script src="js/app.min.js?_v=20230223150054"></script>
+	<script src="https://unpkg.com/vue@next?_v=20230223150054"></script>
 
 	<script>
 		const {
@@ -1537,6 +1541,7 @@
 			},
 
 			computed: {
+
 				isValidEmail() {
 					return /^[^@]+@\w+(\.\w+)+\w$/.test(this.email);
 				},
@@ -1550,11 +1555,13 @@
 					}
 
 					return this.sortnews.filter(item => {
+
 						return item.title.toLowerCase().includes(this.search.toLowerCase())
 					}).sort(compare)
 				},
 
 				filteredMenuNews() {
+
 					if (this.menuItemType != null) {
 						function compare(a, b) {
 							if (a.categories < b.categories) return -1;
@@ -1572,8 +1579,32 @@
 
 			methods: {
 
+				displayUpBtn() {
+					const refs = this.$refs.upBtn;
+					window.addEventListener('scroll', () => {
+						if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+							refs.style.display = "flex";
+						} else {
+							refs.style.display = "none";
+						}
+					});
+				},
+
 				hideAll() {
 					this.userSpoiler = false;
+				},
+
+				toUpWindow() {
+					document.body.scrollTop = 0;
+					document.documentElement.scrollTop = 0;
+				},
+
+				toggleBurgerMenu() {
+					document.documentElement.classList.toggle("menu-open");
+				},
+
+				closeBurgerMenu() {
+					document.documentElement.classList.remove("menu-open");
 				},
 
 				openUserSpoiler() {
@@ -1635,6 +1666,8 @@
 
 			mounted() {
 
+				this.displayUpBtn();
+
 				fetch(API)
 					.then((response) => response.json())
 					.then(data => {
@@ -1692,7 +1725,7 @@
 						console.log(error);
 					});
 			}
-		}).mount('#app')
+		}).mount('#app');
 	</script>
 </body>
 

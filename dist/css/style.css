@@ -878,6 +878,26 @@ svg {
   }
 }
 
+.main__upbtn {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: #a5d7ff;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
 /*
 .icon-menu {
 	display: none;
@@ -2856,5 +2876,11 @@ html.menu-open .main__news {
 @media (min-width: 860px) and (max-width: 20em) {
   .dashboard {
     max-width: 6.25rem;
+  }
+}
+
+@media (any-hover: hover) {
+  .main__upbtn:hover {
+    background-color: #0768B5;
   }
 }

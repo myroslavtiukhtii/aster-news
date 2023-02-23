@@ -13,12 +13,6 @@
             document.documentElement.classList.add(className);
         }));
     }
-    let bodyLockStatus = true;
-    function menuInit() {
-        if (document.querySelector(".header__burger")) document.addEventListener("click", (function(e) {
-            if (bodyLockStatus && e.target.closest(".header__burger")) document.documentElement.classList.toggle("menu-open"); else document.documentElement.classList.remove("menu-open");
-        }));
-    }
     function ssr_window_esm_isObject(obj) {
         return null !== obj && "object" === typeof obj && "constructor" in obj && obj.constructor === Object;
     }
@@ -3247,5 +3241,4 @@
     da.init();
     window["FLS"] = true;
     isWebp();
-    menuInit();
 })();
