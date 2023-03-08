@@ -23,7 +23,7 @@ body {
   color: #072D4B;
   line-height: 1;
   font-family: "Roboto";
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -150,7 +150,7 @@ html {
 }
 
 body {
-  background-color: #F4F9F8;
+  background-color: #f9f9f4;
 }
 
 svg {
@@ -473,6 +473,9 @@ svg {
   padding-top: 45px;
   z-index: 999;
   border-radius: 4px;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 .share__modal .share__list {
@@ -959,7 +962,7 @@ svg {
 
 .menu {
   max-width: 260px;
-  background-color: #F4F9F8;
+  background-color: #f9f9f4;
   padding: 15px 16px 17px 0;
   -webkit-transition: 0.3s ease-in;
   -o-transition: 0.3s ease-in;
@@ -995,7 +998,7 @@ svg {
   transition: 0.3s ease-in;
 }
 
-.menu__item:first-child {
+.menu__item:first-child .menu__link {
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -1027,14 +1030,17 @@ svg {
   background-color: #c8c8c8;
 }
 
-.menu__item:not(:first-child):hover {
+.menu__item:not(:first-child):hover,
+.menu__item:not(:first-child):focus {
   background: rgba(47, 159, 248, 0.1);
   border-radius: 0px 37px 37px 0px;
   color: #2F9FF8;
 }
 
-.menu__item:not(:first-child):hover .menu__link {
-  stroke: #2F9FF8;
+.menu__item:not(:first-child):hover img,
+.menu__item:not(:first-child):focus img {
+  -webkit-filter: invert(40%);
+          filter: invert(40%);
 }
 
 .menu__link {
@@ -1057,8 +1063,11 @@ svg {
 }
 
 .menu__link img {
-  width: 24px;
-  height: 24px;
+  width: 34px;
+  height: 34px;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 .menu__subscribe {
@@ -1370,9 +1379,10 @@ html.menu-open .main__news {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 10px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -1384,7 +1394,6 @@ html.menu-open .main__news {
   line-height: 1;
   color: #072D4B;
   background: #FFFFFF;
-  border: 1px solid #FFFFFF;
   -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
           box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
   border-radius: 20px;
@@ -1394,8 +1403,12 @@ html.menu-open .main__news {
   cursor: pointer;
 }
 
-.main__news .main__newsfeed .main__tags .tags__list .list__item:hover {
-  background-color: #cbe8ff;
+.main__news .main__newsfeed .main__tags .tags__list .list__item:hover,
+.main__news .main__newsfeed .main__tags .tags__list .list__item:focus {
+  background: #2F9FF8;
+  -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
+          box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
+  color: #fff;
 }
 
 .main__news .main__newsfeed .newsfeed__list {
@@ -1532,12 +1545,18 @@ html.menu-open .main__news {
   font-weight: 400;
   font-size: 12px;
   line-height: 22px;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 .main__news .main__newsfeed .newsfeed__list .list__item .crumbs .crumbs__share .share__icon {
   width: 16px;
   height: 16px;
   stroke: #0768B5;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 .main__news .main__newsfeed .newsfeed__list .list__item .crumbs .readlater {
@@ -1553,6 +1572,9 @@ html.menu-open .main__news {
   font-weight: 400;
   font-size: 12px;
   line-height: 22px;
+  -webkit-transition: 0.3s ease-in;
+  -o-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 .main__news .main__newsfeed .newsfeed__list .list__item .crumbs .readlater .readlater__icon {
@@ -1561,12 +1583,14 @@ html.menu-open .main__news {
   stroke: #0768B5;
 }
 
+.main__news .main__newsfeed .newsfeed__list .list__item .crumbs .crumbs__share:hover,
+.main__news .main__newsfeed .newsfeed__list .list__item .crumbs .readlater:hover {
+  color: #000;
+}
+
 .main__news .main__newsfeed .newsfeed__list .list__item .crumbs .crumbs__share:hover svg,
 .main__news .main__newsfeed .newsfeed__list .list__item .crumbs .readlater:hover svg {
-  -webkit-transform: rotate(360deg);
-      -ms-transform: rotate(360deg);
-          transform: rotate(360deg);
-  scale: 1.1;
+  stroke: #000;
 }
 
 .main__news .main__newsfeed .newsfeed__list .list__item:hover {
@@ -2628,6 +2652,17 @@ html.menu-open .main__news {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+  }
+
+  .menu__link img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu__subscribe {
+    display: none;
   }
 }
 
